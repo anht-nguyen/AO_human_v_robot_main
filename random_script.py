@@ -1,11 +1,8 @@
-
 import pandas as pd
 import numpy as np
 
-
-
-
 # Ask the user for the file path to the Excel file
+
 file_path = input("Please enter the path to your Excel file: ")
 
 # Read the Excel file
@@ -18,13 +15,14 @@ except Exception as e:
 # Parameters for the experiment setup
 Num_Conditions = 4  # Assuming there are 4 unique conditions
 Num_Actions = 5     # Assuming there are 5 unique actions
-N_rep = 8         # Each condition-action pair is repeated 8 times
+N_rep = 8           # Each condition-action pair is repeated 8 times
 num_blocks = 10     # The number of blocks
 block_size = 16     # The number of stimuli in each block (without controls)
 num_controls = 3    # The number of control trials in each block
 total_trials = Num_Conditions * Num_Actions * N_rep  # Total should be 160
 
 # Ensure we have the correct number of trials
+print(f"Total trials read from the Excel file: {len(trials)}")
 
 # Generate the full list of trials by repeating the existing ones
 full_trials = pd.concat([trials] * N_rep, ignore_index=True)
@@ -34,11 +32,17 @@ full_trials_shuffled = full_trials.sample(frac=1).reset_index(drop=True)
 
 # Randomly select 20 trials to be catch trials and mark half as blocked
 catch_trial_indices = np.random.choice(full_trials_shuffled.index, size=20, replace=False)
+full_trials_shuffled['condition'] = 'experimental'
+full_trials_shuffled.loc[catch_trial_indices[:10], 'condition'] = 'catch'
 full_trials_shuffled['blocked'] = 'no'
 full_trials_shuffled.loc[catch_trial_indices[:10], 'blocked'] = 'yes'
 
 # Add a question mark column for all trials
-full_trials_shuffled['question?'] = np.random.choice(['yes', 'no'], size=len(full_trials_shuffled), p=[0.5, 0.5])
+full_trials_shuffled['question?'] = 'no'
+
+# Randomly select 20 trials to be questions
+question_indices = np.random.choice(full_trials_shuffled.index, size=20, replace=False)
+full_trials_shuffled.loc[question_indices, 'question?'] = 'yes'
 
 # Create blocks with controls and randomized catch trials
 blocks = []
@@ -59,10 +63,28 @@ for b in range(num_blocks):
 
     block_trials = pd.concat([block_trials, control_trials], ignore_index=True)
 
-    # Randomly add 1 to 3 catch trials to the block (not including those already marked as blocked)
-    num_catch_to_add = np.random.randint(1, 4)
+    # Add at least one catch trial and one question
+    num_catch_to_add = 1
     catch_trials_to_add = full_trials_shuffled.loc[catch_trial_indices].sample(n=num_catch_to_add)
     block_trials = pd.concat([block_trials, catch_trials_to_add], ignore_index=True)
+
+    num_question_to_add = 1
+    question_trials_to_add = full_trials_shuffled.loc[question_indices].sample(n=num_question_to_add)
+    block_trials = pd.concat([block_trials, question_trials_to_add], ignore_index=True)
+
+    # Fill remaining trials with control trials if necessary
+    while len(block_trials) < block_size:
+        num_control_to_add = min(block_size - len(block_trials), num_controls)
+        control_trials = pd.DataFrame({
+            'condition': ['control'] * num_control_to_add,
+            'stimulus': [f'control_{i}' for i in range(num_control_to_add)],
+            'stimValue': list(range(num_control_to_add)),
+            'stimLabel': [f'Landscape {i+1}' for i in range(num_control_to_add)],
+            'stimDir': [f'/stimuli/control_{i}.mp4' for i in range(num_control_to_add)],
+            'blocked': 'no',
+            'question?': 'no'
+        })
+        block_trials = pd.concat([block_trials, control_trials], ignore_index=True)
 
     # Shuffle the block
     block_trials = block_trials.sample(frac=1).reset_index(drop=True)
@@ -72,12 +94,17 @@ for b in range(num_blocks):
 
     # Remove the used catch trials from the selection pool
     catch_trial_indices = np.setdiff1d(catch_trial_indices, catch_trials_to_add.index)
+    question_indices = np.setdiff1d(question_indices, question_trials_to_add.index)
+
+    # Add block index
+    block_trials['block'] = b
+    print(f"Block {b}: {len(block_trials)} trials")
 
 # Concatenate all blocks to get the final trial list
 final_trial_list = pd.concat(blocks, ignore_index=True)
 
-# Output the final trial list to a new Excel file
-output_file_path = 'final_trials.xlsx'
+output_file_path = r'C:\Users\andre\PycharmProjects\Robot Code Stuff\final_trials.xlsx'
 final_trial_list.to_excel(output_file_path, index=False)
+
 
 print(f"The script has completed. The final trials have been saved to '{output_file_path}'.")
