@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.2.3),
-    on March 18, 2024, at 13:44
+    on March 18, 2024, at 17:17
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -1250,8 +1250,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                         # update status
                         ITImarker.status = FINISHED
                         ITImarker.status = FINISHED
-                        delta_time = tThisFlip-t  # Adding the extra time between now and the next screen flip
-                        cortex_obj.update_marker(label='intertrial_interval', delta_time=delta_time)
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1383,8 +1381,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                         # update status
                         fixationCrossMarker.status = FINISHED
                         fixationCrossMarker.status = FINISHED
-                        delta_time = tThisFlip-t  # Adding the extra time between now and the next screen flip
-                        cortex_obj.update_marker(label='fixationCross', delta_time=delta_time)
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1525,7 +1521,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     stimMarker.status = STARTED
                     stimMarker.status = STARTED
                     delta_time = tThisFlip-t  # Adding the extra time between now and the next screen flip
-                    cortex_obj.inject_marker(value=str(markerValList[counterStim]), label=conditionList[counterStim], delta_time=delta_time)
+                    cortex_obj.inject_marker(value=str(markerValList[counterStim]), label=stimList[counterStim], delta_time=delta_time)
                     stimMarker.start_sent = True
                 
                 # if stimMarker is stopping this frame...
@@ -1540,8 +1536,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                         # update status
                         stimMarker.status = FINISHED
                         stimMarker.status = FINISHED
-                        delta_time = tThisFlip-t  # Adding the extra time between now and the next screen flip
-                        cortex_obj.update_marker(label=conditionList[counterStim], delta_time=delta_time)
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
