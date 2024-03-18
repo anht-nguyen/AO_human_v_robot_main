@@ -108,6 +108,23 @@
       </CodeComponent>
     </Routine>
     <Routine name="welcomeScreen">
+      <CodeComponent name="codeSetup" plugin="None">
+        <Param val="from collections import Counter" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="#blockLenList = []&amp;#10;&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="counts = Counter(blockList)&amp;#10;&amp;#10;countBlockList = [counts[i] for i in range(N_block)] # count the number of trials within each block&amp;#10;print(countBlockList)&amp;#10;&amp;#10;print(catchtrialQList)" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="codeSetup" valType="code" updates="None" name="name"/>
+      </CodeComponent>
       <RoutineSettingsComponent name="welcomeScreen" plugin="None">
         <Param val="none" valType="str" updates="None" name="backgroundFit"/>
         <Param val="" valType="str" updates="None" name="backgroundImg"/>
@@ -167,23 +184,18 @@
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
-      <CodeComponent name="codeSetup" plugin="None">
-        <Param val="from collections import Counter" valType="extendedCode" updates="constant" name="Before Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="#blockLenList = []&amp;#10;&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="counts = Counter(blockList)&amp;#10;&amp;#10;countBlockList = [counts[i] for i in range(N_block)] # count the number of trials within each block&amp;#10;print(countBlockList)" valType="extendedCode" updates="constant" name="Begin Routine"/>
-        <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+      <EmotivRecordingComponent name="cortex_rec" plugin="psychopy-emotiv">
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="codeSetup" valType="code" updates="None" name="name"/>
-      </CodeComponent>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="cortex_rec" valType="code" updates="None" name="name"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="1" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
+      </EmotivRecordingComponent>
     </Routine>
     <Routine name="breakPeriod">
       <RoutineSettingsComponent name="breakPeriod" plugin="None">
@@ -410,7 +422,7 @@
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="0.5" valType="code" updates="None" name="durationEstim"/>
+        <Param val="0.75" valType="code" updates="None" name="durationEstim"/>
         <Param val="white" valType="color" updates="constant" name="fillColor"/>
         <Param val="linear" valType="str" updates="constant" name="interpolate"/>
         <Param val="white" valType="color" updates="constant" name="lineColor"/>
@@ -432,31 +444,21 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="list" updates="constant" name="vertices"/>
       </PolygonComponent>
-      <TextComponent name="textFixationLen" plugin="None">
-        <Param val="white" valType="color" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
-        <Param val="0.5" valType="code" updates="None" name="durationEstim"/>
-        <Param val="None" valType="str" updates="constant" name="flip"/>
-        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
-        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.05" valType="num" updates="constant" name="letterHeight"/>
-        <Param val="textFixationLen" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="constant" name="opacity"/>
-        <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(0, -0.3)" valType="list" updates="constant" name="pos"/>
+      <EmotivMarkingComponent name="fixationCrossMarker" plugin="psychopy-emotiv">
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="0.75" valType="code" updates="None" name="durationEstim"/>
+        <Param val="fixationCross" valType="str" updates="constant" name="emotiv_marker_label"/>
+        <Param val="1000" valType="str" updates="constant" name="emotiv_marker_value"/>
+        <Param val="True" valType="bool" updates="constant" name="emotiv_stop_marker"/>
+        <Param val="fixationCrossMarker" valType="code" updates="None" name="name"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
         <Param val="0.0" valType="code" updates="None" name="startVal"/>
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="$fixationLen" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="$fixationLen" valType="str" updates="set every repeat" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
-      </TextComponent>
+        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
+      </EmotivMarkingComponent>
     </Routine>
     <Routine name="stimVid">
       <RoutineSettingsComponent name="stimVid" plugin="None">
@@ -492,12 +494,12 @@
         <Param val="codeStim" valType="code" updates="None" name="name"/>
       </CodeComponent>
       <MovieComponent name="stimMovie" plugin="None">
-        <Param val="False" valType="bool" updates="None" name="No audio"/>
+        <Param val="True" valType="bool" updates="None" name="No audio"/>
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="ffpyplayer" valType="str" updates="None" name="backend"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="5" valType="code" updates="None" name="durationEstim"/>
+        <Param val="4.5" valType="code" updates="None" name="durationEstim"/>
         <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
         <Param val="False" valType="bool" updates="None" name="loop"/>
         <Param val="$stimDirList[counterStim]" valType="file" updates="set every repeat" name="movie"/>
@@ -531,11 +533,26 @@
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
         <Param val="0.0" valType="code" updates="None" name="startVal"/>
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="5" valType="code" updates="constant" name="stopVal"/>
+        <Param val="4.5" valType="code" updates="constant" name="stopVal"/>
         <Param val="last key" valType="str" updates="constant" name="store"/>
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
+      <EmotivMarkingComponent name="stimMarker" plugin="psychopy-emotiv">
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="0.01" valType="code" updates="None" name="durationEstim"/>
+        <Param val="$conditionList[counterStim]" valType="str" updates="set every repeat" name="emotiv_marker_label"/>
+        <Param val="$markerValList[counterStim]" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
+        <Param val="True" valType="bool" updates="constant" name="emotiv_stop_marker"/>
+        <Param val="stimMarker" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="4.4" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
+      </EmotivMarkingComponent>
     </Routine>
     <Routine name="interTrialInterval">
       <RoutineSettingsComponent name="interTrialInterval" plugin="None">
@@ -614,6 +631,21 @@
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
+      <EmotivMarkingComponent name="ITImarker" plugin="psychopy-emotiv">
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="3" valType="code" updates="None" name="durationEstim"/>
+        <Param val="intertrial_interval" valType="str" updates="constant" name="emotiv_marker_label"/>
+        <Param val="3000" valType="str" updates="constant" name="emotiv_marker_value"/>
+        <Param val="True" valType="bool" updates="constant" name="emotiv_stop_marker"/>
+        <Param val="ITImarker" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="$itiLen" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
+      </EmotivMarkingComponent>
     </Routine>
     <Routine name="blockSetup">
       <RoutineSettingsComponent name="blockSetup" plugin="None">
@@ -637,7 +669,7 @@
         <Param val="counterBlock = 0" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="N_trial = countBlockList[counterBlock]&amp;#10;print('Number of trials: ', N_trial)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="N_trial = countBlockList[counterBlock]&amp;#10;print(&quot;Block: &quot;, counterBlock)&amp;#10;print('Number of trials: ', N_trial)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -671,7 +703,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="if ((catchtrialQList[counterStim] === &quot;no&quot;)) {&amp;#10;    continueRoutine = false;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="if catchtrialQList[counterStim] == 'no':&amp;#10;    continueRoutine = False&amp;#10;    &amp;#10;ansNeg = &quot;Affirmative&quot;&amp;#10;ansAffirm = &quot;Negative&quot;&amp;#10;&amp;#10;#Randomize answer's position and key response&amp;#10;posLeft = (-0.4, -0.1)&amp;#10;posRight = (0.4, -0.1)&amp;#10;keyNeg = random.choice(['left', 'right'])&amp;#10;if keyNeg == 'left':&amp;#10;    posAnsNeg = posLeft&amp;#10;    &amp;#10;    keyAffirm = 'right'&amp;#10;    posAnsAffirm = posRight&amp;#10;else :&amp;#10;    posAnsNeg = posRight&amp;#10;    &amp;#10;    keyAffirm = 'left'&amp;#10;    posAnsAffirm = posLeft&amp;#10;        &amp;#10;    &amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="if catchtrialQList[counterStim-1] == 'no':&amp;#10;    continueRoutine = False&amp;#10;else:&amp;#10;    print(&quot;There's a catchtrial here&quot;)&amp;#10;&amp;#10;ansNeg = &quot;Affirmative&quot;&amp;#10;ansAffirm = &quot;Negative&quot;&amp;#10;&amp;#10;#Randomize answer's position and key response&amp;#10;posLeft = (-0.4, -0.1)&amp;#10;posRight = (0.4, -0.1)&amp;#10;keyNeg = random.choice(['left', 'right'])&amp;#10;if keyNeg == 'left':&amp;#10;    posAnsNeg = posLeft&amp;#10;    &amp;#10;    keyAffirm = 'right'&amp;#10;    posAnsAffirm = posRight&amp;#10;else :&amp;#10;    posAnsNeg = posRight&amp;#10;    &amp;#10;    keyAffirm = 'left'&amp;#10;    posAnsAffirm = posLeft&amp;#10;&amp;#10;&amp;#10;        &amp;#10;    &amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
