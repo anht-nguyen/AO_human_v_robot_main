@@ -173,7 +173,8 @@ print()
 # Concatenate all blocks to get the final trial list
 final_trial_list = randomize_trials_df
 
-output_file_path = r'C:\Users\andre\PycharmProjects\Robot Code Stuff\final_trials.xlsx'
+# output_file_path = r'C:\Users\andre\PycharmProjects\Robot Code Stuff\final_trials.xlsx'
+output_file_path = 'final_trials.xlsx'
 final_trial_list.to_excel(output_file_path, index=False)
 
 
