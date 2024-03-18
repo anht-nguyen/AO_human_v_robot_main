@@ -6,6 +6,12 @@ stim_table_initial = pd.read_excel("stim_table_initial.xlsx")
 print(stim_table_initial)
 
 
+
+#3 dataframes: 160-experimental trial df (shuffled and will be allocated into 10 blocks, 16 trials per block), 
+#30-control trial df, 25-catchtrial df
+#Each df has same 8 columns: block, condition, stimulus, stimValue, stimLabel, stimDir, markerval, catchtrialQ
+
+
 # Parameters for the experiment setup
 Num_Conditions = 4  # Assuming there are 4 unique conditions
 Num_Actions = 5     # Assuming there are 5 unique actions
@@ -32,19 +38,44 @@ print(f"Total stim_table_initial read from the Excel file: {len(stim_table_initi
 
 only20rows = stim_table_initial[:20]
 
-first20 = pd.concat([only20rows] * N_rep, ignore_index=True)
+df_experimental_trials = pd.concat([only20rows] * N_rep, ignore_index=True)
 
-next3rows = stim_table_initial[20:23]
-
-next3 = pd.concat([next3rows] * 10, ignore_index=True)
-
-full_trials = pd.concat([first20, next3])
-
+df_experimental_trials['blockNumber'] = df_experimental_trials['blockNumber']. astype(int)
+df_experimental_trials['markerVal'] = df_experimental_trials['markerVal']. astype(int)
 
 
 
 # Shuffle the trials to ensure no consecutive stimuli
-full_trials_shuffled = full_trials.sample(frac=1).reset_index(drop=True)
+df_experimental_trials_shuffled = df_experimental_trials.sample(frac=1).reset_index(drop=True)
+
+# Adding  the block number to experimental trials
+
+for i in range(10):
+    df_experimental_trials_shuffled.loc[i*16:(i+1)*16, 'blockNumber'] = i
+
+print(df_experimental_trials)
+
+next3rows = stim_table_initial[20:23]
+
+df_control_trials = pd.concat([next3rows] * 10, ignore_index=True)
+
+# Shuffle the control trials 
+df_control_trials_shuffled = df_control_trials.sample(frac=1).reset_index(drop=True)
+
+# Adding the block number to control trials
+
+for i in range(10):
+    df_control_trials_shuffled.loc[i*3:(i+1)*3, 'blockNumber'] = i
+
+
+
+
+
+
+
+
+
+
 
 
 # shuffle not all together, shuffle before allocating to the blocks, shuffle each group of stimuli before allocating to blocks
@@ -77,25 +108,76 @@ print(stimDir_12)
 
 total_catch = stimDir_12 + catch_trials_object
 
+blockNum_catch = [0] * 25
 condition_catch = ["catch"] * 25
-marker_catch = ["100"] * 25
+marker_catch = [100] * 25
 question_catch = ["yes"] * 25
 stimulus_catch = [""] * 25
 stimVal_catch = [""] * 25
 stimLabel_catch = [""] * 25
 
-df_catch = pd.DataFrame({"condition": condition_catch, "stimulus": stimulus_catch, "stimValue": stimVal_catch, "stimLabel": stimLabel_catch, "stimDir": total_catch, "markerVal" : marker_catch, "catchtrialQ" : question_catch})
+
+df_catch = pd.DataFrame({"blockNumber": blockNum_catch, "condition": condition_catch, "stimulus": stimulus_catch, "stimValue": stimVal_catch, "stimLabel": stimLabel_catch, "stimDir": total_catch, "markerVal" : marker_catch, "catchtrialQ" : question_catch})
+
+# Shuffle the catch trials 
+df_catch_shuffled = df_catch.sample(frac=1).reset_index(drop=True)
+
+# Adding the block number to control trials (add 2-3):
+# Generate list of 25 items; 2 0s 3 1s 2 3s etc, append to block Number in df_catch 
+
+blockNum_catch = list(range(10)) * 2
+## order these so that 0,0, 1,1, etc
+
+# randomize 5 numbers from 0 to 9
+
+fiverandomNum = [random.randint(0, 9) for _ in range(5)]
+print(fiverandomNum)
+
+total_blockNum = fiverandomNum + blockNum_catch
+
+total_blockNum = sorted(total_blockNum)
+
+print(total_blockNum)
 
 
-fulltshuffle_catch = pd.concat[full_trials_shuffled, df_catch]
+
+# Assign to block number
+
+df_catch_shuffled['blockNumber'] = total_blockNum
+
+print(df_catch_shuffled)
 
 
-catch_trial_indices = np.random.choice(full_trials_shuffled.index, size=12, replace=False)
+randomize_trials_df = pd.DataFrame()
+filtered_dfs = pd.DataFrame()
+
+for i in range(10): 
+    #extract the block from the three dataframes and bring these together
+    filtered_df_exp_shuff = df_experimental_trials_shuffled[df_experimental_trials_shuffled["blockNumber"] == i]
+    filtered_df_control_shuff = df_control_trials_shuffled[df_control_trials_shuffled["blockNumber"] == i]
+    filtered_df_catch_shuff = df_catch_shuffled[df_catch_shuffled["blockNumber"] == i]
+
+    concat_filtered_df = pd.concat([filtered_dfs, filtered_df_exp_shuff, filtered_df_control_shuff, filtered_df_catch_shuff])
+    concat_filtered_df = concat_filtered_df.sample(frac=1).reset_index(drop=True)
+
+    randomize_trials_df = pd.concat([randomize_trials_df, concat_filtered_df])
+
+
+print(concat_filtered_df)
+print()
 
 
 
 
 
+# Concatenate all blocks to get the final trial list
+final_trial_list = randomize_trials_df
+
+output_file_path = r'C:\Users\andre\PycharmProjects\Robot Code Stuff\final_trials.xlsx'
+final_trial_list.to_excel(output_file_path, index=False)
+
+
+print(f"The script has completed. The final trials have been saved to '{output_file_path}'.")
 
 
 
