@@ -9,17 +9,18 @@ print(stim_table_initial)
 
 #3 dataframes: 160-experimental trial df (shuffled and will be allocated into 10 blocks, 16 trials per block), 
 #30-control trial df, 25-catchtrial df
-#Each df has same 8 columns: block, condition, stimulus, stimValue, stimLabel, stimDir, markerval, catchtrialQ
+#Each df has same 8 columns: block, condition, stimulus, stimValue, stimLabel, stimDir, markerval, catchtrialObj
 
 
 # Parameters for the experiment setup
-Num_Conditions = 4  # Assuming there are 4 unique conditions
-Num_Actions = 5     # Assuming there are 5 unique actions
-N_rep = 8           # Each condition-action pair is repeated 8 times
+num_Conditions = 4  # Assuming there are 4 unique conditions
+num_Actions = 5     # Assuming there are 5 unique actions
+num_stim_rep = 8           # Each condition-action pair is repeated 8 times
 num_blocks = 10     # The number of blocks
 block_size = 16     # The number of stimuli in each block (without controls)
 num_controls = 3    # The number of control stim_table_initial in each block
-total_trials = Num_Conditions * Num_Actions * N_rep  # Total should be 160
+num_control_rep = 10 # The number of times each control is repeated
+total_trials = num_Conditions * num_Actions * num_stim_rep  # Total should be 160
 
 
 # Ensure we have the correct number of stim_table_initial
@@ -36,9 +37,9 @@ print(f"Total stim_table_initial read from the Excel file: {len(stim_table_initi
 #for first 20 rows repeat 8 times, next 3 rows repeat 10 times, 
 #last row can create catch trial later
 
-only20rows = stim_table_initial[:20]
+only20rows = stim_table_initial[:num_Conditions*num_Actions]
 
-df_experimental_trials = pd.concat([only20rows] * N_rep, ignore_index=True)
+df_experimental_trials = pd.concat([only20rows] * num_stim_rep, ignore_index=True)
 
 df_experimental_trials['blockNumber'] = df_experimental_trials['blockNumber']. astype(int)
 df_experimental_trials['markerVal'] = df_experimental_trials['markerVal']. astype(int)
@@ -50,14 +51,14 @@ df_experimental_trials_shuffled = df_experimental_trials.sample(frac=1).reset_in
 
 # Adding  the block number to experimental trials
 
-for i in range(10):
+for i in range(num_blocks):
     df_experimental_trials_shuffled.loc[i*16:(i+1)*16, 'blockNumber'] = i
 
 print(df_experimental_trials)
 
 next3rows = stim_table_initial[20:23]
 
-df_control_trials = pd.concat([next3rows] * 10, ignore_index=True)
+df_control_trials = pd.concat([next3rows] * num_control_rep, ignore_index=True)
 
 # Shuffle the control trials 
 df_control_trials_shuffled = df_control_trials.sample(frac=1).reset_index(drop=True)
@@ -66,15 +67,6 @@ df_control_trials_shuffled = df_control_trials.sample(frac=1).reset_index(drop=T
 
 for i in range(10):
     df_control_trials_shuffled.loc[i*3:(i+1)*3, 'blockNumber'] = i
-
-
-
-
-
-
-
-
-
 
 
 
@@ -117,7 +109,7 @@ stimVal_catch = [""] * 25
 stimLabel_catch = [""] * 25
 
 
-df_catch = pd.DataFrame({"blockNumber": blockNum_catch, "condition": condition_catch, "stimulus": stimulus_catch, "stimValue": stimVal_catch, "stimLabel": stimLabel_catch, "stimDir": total_catch, "markerVal" : marker_catch, "catchtrialQ" : question_catch})
+df_catch = pd.DataFrame({"blockNumber": blockNum_catch, "condition": condition_catch, "stimulus": stimulus_catch, "stimValue": stimVal_catch, "stimLabel": stimLabel_catch, "stimDir": total_catch, "markerVal" : marker_catch, "catchtrialObj" : question_catch})
 
 # Shuffle the catch trials 
 df_catch_shuffled = df_catch.sample(frac=1).reset_index(drop=True)
