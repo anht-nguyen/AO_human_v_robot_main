@@ -83,9 +83,9 @@ object_manipulation = ["./stimuli/obj_0.mp4","./stimuli/obj_1.mp4","./stimuli/ob
 
 import random
 
-catch_trials_object = [random.choice(object_manipulation) for _ in range(num_rep_ct_obj)]
-
-print(catch_trials_object)
+catch_trials_object_dir = [random.choice(object_manipulation) for _ in range(num_rep_ct_obj)]
+catch_trials_objects = [s[10:15] for s in catch_trials_object_dir]
+print(catch_trials_object_dir)
 
 
 # select 12 experimental videos to be catch trials, randomly from human videos
@@ -100,12 +100,12 @@ stimDir_12 = [random.choice(stimDir_path) for _ in range(num_rep_ct_stim)]
 print(stimDir_12)
 
 
-total_catch = stimDir_12 + catch_trials_object
+total_catch = stimDir_12 + catch_trials_object_dir
 
 blockNum_catch = [0] * num_rep_total_ct
 condition_catch = ["catch"] * num_rep_total_ct
 marker_catch = [100] * num_rep_total_ct
-question_catch = ["no"]*num_rep_ct_stim + ["yes"] * num_rep_ct_obj
+question_catch = ["none"]*num_rep_ct_stim + catch_trials_objects
 stimulus_catch = [""] * num_rep_total_ct
 stimVal_catch = [""] * num_rep_total_ct
 stimLabel_catch = [""] * num_rep_total_ct
