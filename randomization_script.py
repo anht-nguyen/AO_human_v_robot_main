@@ -21,7 +21,9 @@ block_size = 16     # The number of stimuli in each block (without controls)
 num_controls = 3    # The number of control stim_table_initial in each block
 num_control_rep = 10 # The number of times each control is repeated
 total_trials = num_Conditions * num_Actions * num_stim_rep  # Total should be 160
-
+num_rep_ct_obj = 13 # Number of times each object manipulation catchtrial video is repeated
+num_rep_ct_stim = 12 # Number of times each experimental catchtrial video is repeated
+num_rep_total_ct = 25 # Total number of catch trials
 
 # Ensure we have the correct number of stim_table_initial
 print(f"Total stim_table_initial read from the Excel file: {len(stim_table_initial)}")
@@ -52,11 +54,11 @@ df_experimental_trials_shuffled = df_experimental_trials.sample(frac=1).reset_in
 # Adding  the block number to experimental trials
 
 for i in range(num_blocks):
-    df_experimental_trials_shuffled.loc[i*16:(i+1)*16, 'blockNumber'] = i
+    df_experimental_trials_shuffled.loc[i*block_size:(i+1)*block_size, 'blockNumber'] = i
 
 print(df_experimental_trials)
 
-next3rows = stim_table_initial[20:23]
+next3rows = stim_table_initial[num_Conditions*num_Actions:num_Conditions*num_Actions+num_controls]
 
 df_control_trials = pd.concat([next3rows] * num_control_rep, ignore_index=True)
 
@@ -65,7 +67,7 @@ df_control_trials_shuffled = df_control_trials.sample(frac=1).reset_index(drop=T
 
 # Adding the block number to control trials
 
-for i in range(10):
+for i in range(num_blocks):
     df_control_trials_shuffled.loc[i*3:(i+1)*3, 'blockNumber'] = i
 
 
@@ -75,38 +77,38 @@ for i in range(10):
 #25 catch trials with videos of object manipulation, all catch trials have "yes" in catchQ
 #13 object manipulation videos & 12 catch trials from experimnetal videos
 
-object_manipulation = ["./stimuli/obj_0.mp4","./stimuli/obj_1.mp4","./stimuli/obj_2.mp4","./stimuli/obj_3.mp4",
-"./stimuli/obj_4.mp4"]
+object_manipulation = ["./stimuli/obj_0.mp4","./stimuli/obj_1.mp4","./stimuli/obj_2.mp4","./stimuli/obj_3.mp4", "./stimuli/obj_4.mp4"]
 
 # Randomly select 13 trials to be catch trials from object manipulation list
 
 import random
 
-catch_trials_object = [random.choice(object_manipulation) for _ in range(13)]
+catch_trials_object = [random.choice(object_manipulation) for _ in range(num_rep_ct_obj)]
 
 print(catch_trials_object)
 
 
-# select 12 experimental videos to be catch trials
+# select 12 experimental videos to be catch trials, randomly from human videos
 
 stimDir_path = []
 
-for i in only20rows["stimDir"]:
+for i in stim_table_initial[0:8]["stimDir"]:
     stimDir_path.append(i)
 
-stimDir_12 = stimDir_path[:12]
+# stimDir_12 = stimDir_path[:num_rep_ct_stim]
+stimDir_12 = [random.choice(stimDir_path) for _ in range(num_rep_ct_stim)]
 print(stimDir_12)
 
 
 total_catch = stimDir_12 + catch_trials_object
 
-blockNum_catch = [0] * 25
-condition_catch = ["catch"] * 25
-marker_catch = [100] * 25
-question_catch = ["yes"] * 25
-stimulus_catch = [""] * 25
-stimVal_catch = [""] * 25
-stimLabel_catch = [""] * 25
+blockNum_catch = [0] * num_rep_total_ct
+condition_catch = ["catch"] * num_rep_total_ct
+marker_catch = [100] * num_rep_total_ct
+question_catch = ["no"]*num_rep_ct_stim + ["yes"] * num_rep_ct_obj
+stimulus_catch = [""] * num_rep_total_ct
+stimVal_catch = [""] * num_rep_total_ct
+stimLabel_catch = [""] * num_rep_total_ct
 
 
 df_catch = pd.DataFrame({"blockNumber": blockNum_catch, "condition": condition_catch, "stimulus": stimulus_catch, "stimValue": stimVal_catch, "stimLabel": stimLabel_catch, "stimDir": total_catch, "markerVal" : marker_catch, "catchtrialObj" : question_catch})
