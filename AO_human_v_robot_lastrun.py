@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.2.3),
-    on March 21, 2024, at 14:37
+    on March 21, 2024, at 19:33
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -418,9 +418,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
     skipStim = keyboard.Keyboard()
     
     # --- Initialize components for Routine "catchtrialQues" ---
-    # Run 'Begin Experiment' code from codeCatchtrial
-    
-    
     textQues = visual.TextStim(win=win, name='textQues',
         text='In the previous clip, \n\nwhich object \n\ndoes the actor use?',
         font='Open Sans',
@@ -444,6 +441,8 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
         depth=-3.0);
     keyRespAffirm = keyboard.Keyboard()
     keyRespNeg = keyboard.Keyboard()
+    
+    # --- Initialize components for Routine "markCTanswer" ---
     
     # --- Initialize components for Routine "postStimInterval" ---
     textITI2 = visual.TextStim(win=win, name='textITI2',
@@ -586,6 +585,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
     counts = Counter(blockList)
     
     countBlockList = [counts[i] for i in range(N_block)] # count the number of trials within each block
+    print('=*'*50)
     print(countBlockList)
     
     #print(catchtrialObjList)
@@ -736,6 +736,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
         thisExp.addData('blockSetup.started', globalClock.getTime())
         # Run 'Begin Routine' code from codeBlockSetup
         N_trial = countBlockList[counterBlock]
+        print('=*'*50)
         print("Block: ", counterBlock)
         print('Number of trials: ', N_trial)
         
@@ -1112,6 +1113,10 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             thisExp.addData('interTrialInterval.started', globalClock.getTime())
             # Run 'Begin Routine' code from codeITI
             itiLen = round(random.uniform(3.5, 4), 3)
+            itiVal = 3000
+            print('-*'*100)
+            print('itiVal: ', itiVal)
+            
             skipITI.keys = []
             skipITI.rt = []
             _skipITI_allKeys = []
@@ -1256,6 +1261,8 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             # Run 'Begin Routine' code from codeFixation
             #fixationLen = round(random.uniform(0.5, 0.75),3) 
             fixationLen = 0.75
+            fixationVal = 1000
+            print('fixationVal: ', fixationVal)
             # keep track of which components have finished
             fixationCrossComponents = [crossFixation]
             for thisComponent in fixationCrossComponents:
@@ -1350,6 +1357,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             print('Trial number: ', counterStim)
             
             print(stimDirList[counterStim])
+            print(markerValList[counterStim])
             stimMovie.setMovie(stimDirList[counterStim])
             skipStim.keys = []
             skipStim.rt = []
@@ -1514,7 +1522,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 keyAffirm = 'left'
                 posAnsAffirm = posLeft
                 
-            
+            #print('keyAffirm: ', keyAffirm)
                 
                 
             
@@ -1800,6 +1808,84 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 routineTimer.reset()
             else:
                 routineTimer.addTime(-3.000000)
+            
+            # --- Prepare to start Routine "markCTanswer" ---
+            continueRoutine = True
+            # update component parameters for each repeat
+            thisExp.addData('markCTanswer.started', globalClock.getTime())
+            # Run 'Begin Routine' code from codeGetAnswer
+            if conditionList[counterStim-1] != 'catch':
+                continueRoutine = False
+                keyPressed = ""
+                statusPress = ""
+                answerCTVal = 0
+            else:
+                keyPressed = event.getKeys()
+                keyPressed = str(keyPressed[-1])
+                keyAffirm = str(keyAffirm[0])
+                print('keyPressed: ', keyPressed)
+                print('keyAffirm: ', keyAffirm)
+                if keyPressed == str(keyAffirm):
+                    statusPress = "Correct!"
+                    answerCTVal = 201
+                else:
+                    statusPress = "Incorrect!"
+                    answerCTVal = 200
+                print('statusPress: ', statusPress)
+                print('answerCTVal: ', answerCTVal)
+                 
+            # keep track of which components have finished
+            markCTanswerComponents = []
+            for thisComponent in markCTanswerComponents:
+                thisComponent.tStart = None
+                thisComponent.tStop = None
+                thisComponent.tStartRefresh = None
+                thisComponent.tStopRefresh = None
+                if hasattr(thisComponent, 'status'):
+                    thisComponent.status = NOT_STARTED
+            # reset timers
+            t = 0
+            _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+            frameN = -1
+            
+            # --- Run Routine "markCTanswer" ---
+            routineForceEnded = not continueRoutine
+            while continueRoutine:
+                # get current time
+                t = routineTimer.getTime()
+                tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+                tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+                frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+                # update/draw components on each frame
+                
+                # check for quit (typically the Esc key)
+                if defaultKeyboard.getKeys(keyList=["escape"]):
+                    thisExp.status = FINISHED
+                if thisExp.status == FINISHED or endExpNow:
+                    endExperiment(thisExp, inputs=inputs, win=win)
+                    return
+                
+                # check if all components have finished
+                if not continueRoutine:  # a component has requested a forced-end of Routine
+                    routineForceEnded = True
+                    break
+                continueRoutine = False  # will revert to True if at least one component still running
+                for thisComponent in markCTanswerComponents:
+                    if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                        continueRoutine = True
+                        break  # at least one component has not yet finished
+                
+                # refresh the screen
+                if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                    win.flip()
+            
+            # --- Ending Routine "markCTanswer" ---
+            for thisComponent in markCTanswerComponents:
+                if hasattr(thisComponent, "setAutoDraw"):
+                    thisComponent.setAutoDraw(False)
+            thisExp.addData('markCTanswer.stopped', globalClock.getTime())
+            # the Routine "markCTanswer" was not non-slip safe, so reset the non-slip timer
+            routineTimer.reset()
             
             # --- Prepare to start Routine "postStimInterval" ---
             continueRoutine = True

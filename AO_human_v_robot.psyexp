@@ -129,7 +129,7 @@
         <Param val="#blockLenList = []&amp;#10;&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="counts = Counter(blockList)&amp;#10;&amp;#10;countBlockList = [counts[i] for i in range(N_block)] # count the number of trials within each block&amp;#10;print(countBlockList)&amp;#10;&amp;#10;#print(catchtrialObjList)" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="counts = Counter(blockList)&amp;#10;&amp;#10;countBlockList = [counts[i] for i in range(N_block)] # count the number of trials within each block&amp;#10;print('=*'*50)&amp;#10;print(countBlockList)&amp;#10;&amp;#10;#print(catchtrialObjList)" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -418,7 +418,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="fixationLen = util.round(Math.random.uniform(0.35, 0.65), 3);&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="#fixationLen = round(random.uniform(0.5, 0.75),3) &amp;#10;fixationLen = 0.75" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="#fixationLen = round(random.uniform(0.5, 0.75),3) &amp;#10;fixationLen = 0.75&amp;#10;fixationVal = 1000&amp;#10;print('fixationVal: ', fixationVal)" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -475,7 +475,7 @@
         <Param val="True" valType="bool" updates="None" name="disabled"/>
         <Param val="0.75" valType="code" updates="None" name="durationEstim"/>
         <Param val="fixationCross" valType="str" updates="constant" name="emotiv_marker_label"/>
-        <Param val="1000" valType="str" updates="constant" name="emotiv_marker_value"/>
+        <Param val="$fixationVal" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
         <Param val="False" valType="bool" updates="constant" name="emotiv_stop_marker"/>
         <Param val="fixationCrossMarker" valType="code" updates="None" name="name"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
@@ -509,7 +509,7 @@
         <Param val="counterStim = 0" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="counterStim = 0;&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="print('Trial number: ', counterStim)&amp;#10;&amp;#10;print(stimDirList[counterStim])" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="print('Trial number: ', counterStim)&amp;#10;&amp;#10;print(stimDirList[counterStim])&amp;#10;print(markerValList[counterStim])" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -618,7 +618,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="counterStim += 1;&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="itiLen = round(random.uniform(3.5, 4), 3)" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="itiLen = round(random.uniform(3.5, 4), 3)&amp;#10;itiVal = 3000&amp;#10;print('-*'*100)&amp;#10;print('itiVal: ', itiVal)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -692,7 +692,7 @@
         <Param val="True" valType="bool" updates="None" name="disabled"/>
         <Param val="3" valType="code" updates="None" name="durationEstim"/>
         <Param val="intertrial_interval" valType="str" updates="constant" name="emotiv_marker_label"/>
-        <Param val="3000" valType="str" updates="constant" name="emotiv_marker_value"/>
+        <Param val="$itiVal" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
         <Param val="False" valType="bool" updates="constant" name="emotiv_stop_marker"/>
         <Param val="ITImarker" valType="code" updates="None" name="name"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
@@ -726,7 +726,7 @@
         <Param val="counterBlock = 0" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="N_trial = countBlockList[counterBlock]&amp;#10;print(&quot;Block: &quot;, counterBlock)&amp;#10;print('Number of trials: ', N_trial)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="N_trial = countBlockList[counterBlock]&amp;#10;print('=*'*50)&amp;#10;print(&quot;Block: &quot;, counterBlock)&amp;#10;print('Number of trials: ', N_trial)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -757,10 +757,10 @@
       <CodeComponent name="codeCatchtrial" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="if ((catchtrialQList[counterStim] === &quot;no&quot;)) {&amp;#10;    continueRoutine = false;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="if conditionList[counterStim-1] != 'catch':&amp;#10;    continueRoutine = False&amp;#10;else:&amp;#10;    print(&quot;There's a catchtrial here&quot;)&amp;#10; &amp;#10;objectList = [&quot;cup/bottle&quot;, &quot;comb&quot;, &quot;toothbrush&quot;, &quot;pencil&quot;, &quot;fork&quot;]&amp;#10;if catchtrialObjList[counterStim-1] == &quot;none&quot;:&amp;#10;    ansNeg = random.choice(objectList)&amp;#10;    ansAffirm = &quot;None&quot;&amp;#10;else:&amp;#10;    objId = int(catchtrialObjList[counterStim-1][-1])&amp;#10;    print(catchtrialObjList[counterStim-1])&amp;#10;    print(objId)  &amp;#10;    ansAffirm = objectList[objId]&amp;#10;    objectList.pop(objId)&amp;#10;    ansNeg = random.choice(objectList)&amp;#10;    &amp;#10;    &amp;#10;#Randomize answer's position and key response&amp;#10;posLeft = (-0.4, -0.1)&amp;#10;posRight = (0.4, -0.1)&amp;#10;keyNeg = random.choice(['left', 'right'])&amp;#10;if keyNeg == 'left':&amp;#10;    posAnsNeg = posLeft&amp;#10;    &amp;#10;    keyAffirm = 'right'&amp;#10;    posAnsAffirm = posRight&amp;#10;else :&amp;#10;    posAnsNeg = posRight&amp;#10;    &amp;#10;    keyAffirm = 'left'&amp;#10;    posAnsAffirm = posLeft&amp;#10;    &amp;#10;&amp;#10;    &amp;#10;    &amp;#10;&amp;#10;&amp;#10;        &amp;#10;    &amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="if conditionList[counterStim-1] != 'catch':&amp;#10;    continueRoutine = False&amp;#10;else:&amp;#10;    print(&quot;There's a catchtrial here&quot;)&amp;#10; &amp;#10;objectList = [&quot;cup/bottle&quot;, &quot;comb&quot;, &quot;toothbrush&quot;, &quot;pencil&quot;, &quot;fork&quot;]&amp;#10;if catchtrialObjList[counterStim-1] == &quot;none&quot;:&amp;#10;    ansNeg = random.choice(objectList)&amp;#10;    ansAffirm = &quot;None&quot;&amp;#10;else:&amp;#10;    objId = int(catchtrialObjList[counterStim-1][-1])&amp;#10;    print(catchtrialObjList[counterStim-1])&amp;#10;    print(objId)  &amp;#10;    ansAffirm = objectList[objId]&amp;#10;    objectList.pop(objId)&amp;#10;    ansNeg = random.choice(objectList)&amp;#10;    &amp;#10;    &amp;#10;#Randomize answer's position and key response&amp;#10;posLeft = (-0.4, -0.1)&amp;#10;posRight = (0.4, -0.1)&amp;#10;keyNeg = random.choice(['left', 'right'])&amp;#10;if keyNeg == 'left':&amp;#10;    posAnsNeg = posLeft&amp;#10;    &amp;#10;    keyAffirm = 'right'&amp;#10;    posAnsAffirm = posRight&amp;#10;else :&amp;#10;    posAnsNeg = posRight&amp;#10;    &amp;#10;    keyAffirm = 'left'&amp;#10;    posAnsAffirm = posLeft&amp;#10;    &amp;#10;#print('keyAffirm: ', keyAffirm)&amp;#10;    &amp;#10;    &amp;#10;&amp;#10;&amp;#10;        &amp;#10;    &amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -1005,6 +1005,80 @@
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
     </Routine>
+    <Routine name="markCTanswer">
+      <RoutineSettingsComponent name="markCTanswer" plugin="None">
+        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+        <Param val="" valType="str" updates="None" name="backgroundImg"/>
+        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+        <Param val="" valType="str" updates="constant" name="desc"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="markCTanswer" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="constant" name="skipIf"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
+      </RoutineSettingsComponent>
+      <CodeComponent name="codeGetAnswer" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="if conditionList[counterStim-1] != 'catch':&amp;#10;    continueRoutine = False&amp;#10;    keyPressed = &quot;&quot;&amp;#10;    statusPress = &quot;&quot;&amp;#10;    answerCTVal = 0&amp;#10;else:&amp;#10;    keyPressed = event.getKeys()&amp;#10;    keyPressed = str(keyPressed[-1])&amp;#10;    keyAffirm = str(keyAffirm[0])&amp;#10;    print('keyPressed: ', keyPressed)&amp;#10;    print('keyAffirm: ', keyAffirm)&amp;#10;    if keyPressed == str(keyAffirm):&amp;#10;        statusPress = &quot;Correct!&quot;&amp;#10;        answerCTVal = 201&amp;#10;    else:&amp;#10;        statusPress = &quot;Incorrect!&quot;&amp;#10;        answerCTVal = 200&amp;#10;    print('statusPress: ', statusPress)&amp;#10;    print('answerCTVal: ', answerCTVal)&amp;#10;     " valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="codeGetAnswer" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+      <TextComponent name="textShowAnswer" plugin="None">
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="True" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.05" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="textShowAnswer" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="2" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="$'You pressed: ' + str(keyPressed) + '. ' + str(statusPress)" valType="str" updates="set every repeat" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <EmotivMarkingComponent name="eeg_marker" plugin="psychopy-emotiv">
+        <Param val="True" valType="bool" updates="None" name="disabled"/>
+        <Param val="0.01" valType="code" updates="None" name="durationEstim"/>
+        <Param val="answerCT" valType="str" updates="constant" name="emotiv_marker_label"/>
+        <Param val="$answerCTval" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
+        <Param val="False" valType="bool" updates="constant" name="emotiv_stop_marker"/>
+        <Param val="eeg_marker" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="0.1" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
+      </EmotivMarkingComponent>
+    </Routine>
   </Routines>
   <Flow>
     <LoopInitiator loopType="TrialHandler" name="loopLoader">
@@ -1061,6 +1135,7 @@
     <Routine name="fixationCross"/>
     <Routine name="stimVid"/>
     <Routine name="catchtrialQues"/>
+    <Routine name="markCTanswer"/>
     <Routine name="postStimInterval"/>
     <LoopTerminator name="loopTrial"/>
     <Routine name="endBlock"/>
