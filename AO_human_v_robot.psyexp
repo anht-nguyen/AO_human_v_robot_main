@@ -509,7 +509,7 @@
         <Param val="counterStim = 0" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="counterStim = 0;&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="print('Trial number: ', counterStim)&amp;#10;&amp;#10;print(stimDirList[counterStim])&amp;#10;print(markerValList[counterStim])" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="print('Trial number: ', counterStim)&amp;#10;&amp;#10;print(stimDirList[counterStim])&amp;#10;print('stim marker val: ', markerValList[counterStim])" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -633,7 +633,7 @@
         <Param val="white" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="None" name="disabled"/>
         <Param val="3" valType="code" updates="None" name="durationEstim"/>
         <Param val="None" valType="str" updates="constant" name="flip"/>
         <Param val="Open Sans" valType="str" updates="constant" name="font"/>
@@ -922,7 +922,7 @@
         <Param val="white" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="None" name="disabled"/>
         <Param val="" valType="code" updates="None" name="durationEstim"/>
         <Param val="None" valType="str" updates="constant" name="flip"/>
         <Param val="Open Sans" valType="str" updates="constant" name="font"/>
@@ -1027,7 +1027,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="if conditionList[counterStim-1] != 'catch':&amp;#10;    continueRoutine = False&amp;#10;    keyPressed = &quot;&quot;&amp;#10;    statusPress = &quot;&quot;&amp;#10;    answerCTVal = 0&amp;#10;else:&amp;#10;    keyPressed = event.getKeys()&amp;#10;    keyPressed = str(keyPressed[-1])&amp;#10;    keyAffirm = str(keyAffirm[0])&amp;#10;    print('keyPressed: ', keyPressed)&amp;#10;    print('keyAffirm: ', keyAffirm)&amp;#10;    if keyPressed == str(keyAffirm):&amp;#10;        statusPress = &quot;Correct!&quot;&amp;#10;        answerCTVal = 201&amp;#10;    else:&amp;#10;        statusPress = &quot;Incorrect!&quot;&amp;#10;        answerCTVal = 200&amp;#10;    print('statusPress: ', statusPress)&amp;#10;    print('answerCTVal: ', answerCTVal)&amp;#10;     " valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="if conditionList[counterStim-1] != 'catch':&amp;#10;    continueRoutine = False&amp;#10;    keyPressed = &quot;&quot;&amp;#10;    statusPress = &quot;&quot;&amp;#10;    answerCTVal = 0&amp;#10;else:&amp;#10;    keyPressed = event.getKeys()&amp;#10;    print(keyPressed)&amp;#10;    if keyPressed == []:&amp;#10;        keyPressed = 'none'&amp;#10;    else:    &amp;#10;        keyPressed = str(keyPressed[-1])&amp;#10;    &amp;#10;    keyAffirm = str(keyAffirm[0])&amp;#10;    print('keyPressed: ', keyPressed)&amp;#10;    print('keyAffirm: ', keyAffirm)&amp;#10;    if keyPressed == str(keyAffirm):&amp;#10;        statusPress = &quot;Correct!&quot;&amp;#10;        answerCTVal = 201&amp;#10;    else:&amp;#10;        statusPress = &quot;Incorrect!&quot;&amp;#10;        answerCTVal = 200&amp;#10;    print('statusPress: ', statusPress)&amp;#10;    print('answerCTVal: ', answerCTVal)&amp;#10;     " valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.2.3),
-    on March 21, 2024, at 19:33
+    on March 21, 2024, at 20:00
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -387,13 +387,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
     skipBreak = keyboard.Keyboard()
     
     # --- Initialize components for Routine "interTrialInterval" ---
-    textITI = visual.TextStim(win=win, name='textITI',
-        text='InterTrial interval\n\n(text to be disabled)',
-        font='Open Sans',
-        pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-1.0);
     skipITI = keyboard.Keyboard()
     
     # --- Initialize components for Routine "fixationCross" ---
@@ -445,13 +438,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
     # --- Initialize components for Routine "markCTanswer" ---
     
     # --- Initialize components for Routine "postStimInterval" ---
-    textITI2 = visual.TextStim(win=win, name='textITI2',
-        text='InterTrial interval\n\n(text to be disabled)',
-        font='Open Sans',
-        pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-1.0);
     
     # --- Initialize components for Routine "endBlock" ---
     
@@ -1121,7 +1107,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             skipITI.rt = []
             _skipITI_allKeys = []
             # keep track of which components have finished
-            interTrialIntervalComponents = [textITI, skipITI]
+            interTrialIntervalComponents = [skipITI]
             for thisComponent in interTrialIntervalComponents:
                 thisComponent.tStart = None
                 thisComponent.tStop = None
@@ -1143,39 +1129,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                # *textITI* updates
-                
-                # if textITI is starting this frame...
-                if textITI.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                    # keep track of start time/frame for later
-                    textITI.frameNStart = frameN  # exact frame index
-                    textITI.tStart = t  # local t and not account for scr refresh
-                    textITI.tStartRefresh = tThisFlipGlobal  # on global time
-                    win.timeOnFlip(textITI, 'tStartRefresh')  # time at next scr refresh
-                    # add timestamp to datafile
-                    thisExp.timestampOnFlip(win, 'textITI.started')
-                    # update status
-                    textITI.status = STARTED
-                    textITI.setAutoDraw(True)
-                
-                # if textITI is active this frame...
-                if textITI.status == STARTED:
-                    # update params
-                    pass
-                
-                # if textITI is stopping this frame...
-                if textITI.status == STARTED:
-                    # is it time to stop? (based on global clock, using actual start)
-                    if tThisFlipGlobal > textITI.tStartRefresh + itiLen-frameTolerance:
-                        # keep track of stop time/frame for later
-                        textITI.tStop = t  # not accounting for scr refresh
-                        textITI.frameNStop = frameN  # exact frame index
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'textITI.stopped')
-                        # update status
-                        textITI.status = FINISHED
-                        textITI.setAutoDraw(False)
                 
                 # *skipITI* updates
                 waitOnFlip = False
@@ -1357,7 +1310,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             print('Trial number: ', counterStim)
             
             print(stimDirList[counterStim])
-            print(markerValList[counterStim])
+            print('stim marker val: ', markerValList[counterStim])
             stimMovie.setMovie(stimDirList[counterStim])
             skipStim.keys = []
             skipStim.rt = []
@@ -1821,7 +1774,12 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 answerCTVal = 0
             else:
                 keyPressed = event.getKeys()
-                keyPressed = str(keyPressed[-1])
+                print(keyPressed)
+                if keyPressed == []:
+                    keyPressed = 'none'
+                else:    
+                    keyPressed = str(keyPressed[-1])
+                
                 keyAffirm = str(keyAffirm[0])
                 print('keyPressed: ', keyPressed)
                 print('keyAffirm: ', keyAffirm)
@@ -1895,7 +1853,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             if counterStim < N_trial:
                 continueRoutine = False
             # keep track of which components have finished
-            postStimIntervalComponents = [textITI2]
+            postStimIntervalComponents = []
             for thisComponent in postStimIntervalComponents:
                 thisComponent.tStart = None
                 thisComponent.tStop = None
@@ -1910,46 +1868,13 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             
             # --- Run Routine "postStimInterval" ---
             routineForceEnded = not continueRoutine
-            while continueRoutine and routineTimer.getTime() < 3.5:
+            while continueRoutine:
                 # get current time
                 t = routineTimer.getTime()
                 tThisFlip = win.getFutureFlipTime(clock=routineTimer)
                 tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                # *textITI2* updates
-                
-                # if textITI2 is starting this frame...
-                if textITI2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                    # keep track of start time/frame for later
-                    textITI2.frameNStart = frameN  # exact frame index
-                    textITI2.tStart = t  # local t and not account for scr refresh
-                    textITI2.tStartRefresh = tThisFlipGlobal  # on global time
-                    win.timeOnFlip(textITI2, 'tStartRefresh')  # time at next scr refresh
-                    # add timestamp to datafile
-                    thisExp.timestampOnFlip(win, 'textITI2.started')
-                    # update status
-                    textITI2.status = STARTED
-                    textITI2.setAutoDraw(True)
-                
-                # if textITI2 is active this frame...
-                if textITI2.status == STARTED:
-                    # update params
-                    pass
-                
-                # if textITI2 is stopping this frame...
-                if textITI2.status == STARTED:
-                    # is it time to stop? (based on global clock, using actual start)
-                    if tThisFlipGlobal > textITI2.tStartRefresh + 3.5-frameTolerance:
-                        # keep track of stop time/frame for later
-                        textITI2.tStop = t  # not accounting for scr refresh
-                        textITI2.frameNStop = frameN  # exact frame index
-                        # add timestamp to datafile
-                        thisExp.timestampOnFlip(win, 'textITI2.stopped')
-                        # update status
-                        textITI2.status = FINISHED
-                        textITI2.setAutoDraw(False)
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1977,11 +1902,8 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
             thisExp.addData('postStimInterval.stopped', globalClock.getTime())
-            # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
-            if routineForceEnded:
-                routineTimer.reset()
-            else:
-                routineTimer.addTime(-3.500000)
+            # the Routine "postStimInterval" was not non-slip safe, so reset the non-slip timer
+            routineTimer.reset()
             thisExp.nextEntry()
             
             if thisSession is not None:
