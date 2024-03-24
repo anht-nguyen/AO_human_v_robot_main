@@ -39,9 +39,13 @@ print(f"Total stim_table_initial read from the Excel file: {len(stim_table_initi
 #for first 20 rows repeat 8 times, next 3 rows repeat 10 times, 
 #last row can create catch trial later
 
-only20rows = stim_table_initial[:num_Conditions*num_Actions]
+first20rows = stim_table_initial[:20]
 
-df_experimental_trials = pd.concat([only20rows] * num_stim_rep, ignore_index=True)
+next10rows = stim_table_initial[20:30]
+
+df_experimental_trials_human = pd.concat([first20rows] * 4, ignore_index=True)
+df_experimental_trials_robot = pd.concat([next10rows] * num_stim_rep, ignore_index=True)
+df_experimental_trials = pd.concat([df_experimental_trials_human, df_experimental_trials_robot], ignore_index=True)
 
 df_experimental_trials['blockNumber'] = df_experimental_trials['blockNumber']. astype(int)
 df_experimental_trials['markerVal'] = df_experimental_trials['markerVal']. astype(int)
@@ -58,7 +62,7 @@ for i in range(num_blocks):
 
 print(df_experimental_trials)
 
-next3rows = stim_table_initial[num_Conditions*num_Actions:num_Conditions*num_Actions+num_controls]
+next3rows = stim_table_initial[30:30+num_controls]
 
 df_control_trials = pd.concat([next3rows] * num_control_rep, ignore_index=True)
 
