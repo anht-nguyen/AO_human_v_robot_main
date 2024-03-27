@@ -188,6 +188,16 @@ df_experimental_trials_shuffled.to_excel(output_file_path, index=False)
 
 
 
+# # Export random 10 experimental trails and 10 catch trials for training phase
+# training_experimental_stim = df_experimental_trials_shuffled.sample(n=10)
+# training_catch_stim = df_catch_shuffled.sample(n=10)
+
+# df_training = pd.concat([training_experimental_stim, training_catch_stim], ignore_index=True)
+
+# output_file_path = 'training_randomized_trials.xlsx'
+# df_training.to_excel(output_file_path, index=False)
+
+
 
 
 
