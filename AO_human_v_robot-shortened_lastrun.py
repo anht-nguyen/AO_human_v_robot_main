@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.2.3),
-    on March 26, 2024, at 17:45
+    on March 31, 2024, at 00:17
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -472,7 +472,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
     # set up handler to look after randomisation of conditions etc
     loopLoader = data.TrialHandler(nReps=1.0, method='sequential', 
         extraInfo=expInfo, originPath=-1,
-        trialList=data.importConditions('final_randomized_trials.xlsx'),
+        trialList=data.importConditions('AO_final_randomized_trials.xlsx'),
         seed=None, name='loopLoader')
     thisExp.addLoop(loopLoader)  # add the loop to the experiment
     thisLoopLoader = loopLoader.trialList[0]  # so we can initialise stimuli with some values
@@ -1455,9 +1455,9 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             else:
                 print("There's a catchtrial here")
              
-            objectList = ["cup/bottle", "comb", "toothbrush", "pencil", "fork"]
+            objectList = ["Cup", "Hammer", "Toothbrush", "Pencil", "Fork"]
             if catchtrialObjList[counterStim-1] == "none":
-                ansNeg = random.choice(objectList)
+                ansNeg = randchoice(objectList)
                 ansAffirm = "None"
             else:
                 objId = int(catchtrialObjList[counterStim-1][-1])
@@ -1465,13 +1465,13 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 print(objId)  
                 ansAffirm = objectList[objId]
                 objectList.pop(objId)
-                ansNeg = random.choice(objectList)
+                ansNeg = randchoice(objectList)
                 
                 
             #Randomize answer's position and key response
             posLeft = (-0.4, -0.1)
             posRight = (0.4, -0.1)
-            keyNeg = random.choice(['left', 'right'])
+            keyNeg = randchoice(['left', 'right'])
             if keyNeg == 'left':
                 posAnsNeg = posLeft
                 
