@@ -196,8 +196,8 @@
         <Param val="1" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
       </UnknownPluginComponent>
-      <UnknownPluginComponent name="cortex_rec" plugin="psychopy-emotiv">
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
+      <EmotivRecordingComponent name="cortex_rec" plugin="psychopy-emotiv">
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="" valType="code" updates="None" name="durationEstim"/>
         <Param val="cortex_rec" valType="code" updates="None" name="name"/>
         <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
@@ -207,7 +207,7 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="1" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
-      </UnknownPluginComponent>
+      </EmotivRecordingComponent>
     </Routine>
     <Routine name="breakPeriod">
       <RoutineSettingsComponent name="breakPeriod" plugin="None">
@@ -434,7 +434,7 @@
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="0.75" valType="code" updates="None" name="durationEstim"/>
+        <Param val="1" valType="code" updates="None" name="durationEstim"/>
         <Param val="white" valType="color" updates="constant" name="fillColor"/>
         <Param val="linear" valType="str" updates="constant" name="interpolate"/>
         <Param val="white" valType="color" updates="constant" name="lineColor"/>
@@ -460,8 +460,8 @@
         <Param val="True" valType="bool" updates="None" name="disabled"/>
         <Param val="0.75" valType="code" updates="None" name="durationEstim"/>
         <Param val="fixationCross" valType="str" updates="constant" name="emotiv_marker_label"/>
-        <Param val="1000" valType="str" updates="constant" name="emotiv_marker_value"/>
-        <Param val="True" valType="bool" updates="constant" name="emotiv_stop_marker"/>
+        <Param val="$fixationVal" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
+        <Param val="False" valType="bool" updates="constant" name="emotiv_stop_marker"/>
         <Param val="fixationCrossMarker_saved" valType="code" updates="None" name="name"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
@@ -471,9 +471,9 @@
         <Param val="$fixationLen" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
       </UnknownPluginComponent>
-      <UnknownPluginComponent name="fixationCrossMarker" plugin="psychopy-emotiv">
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
-        <Param val="0.75" valType="code" updates="None" name="durationEstim"/>
+      <EmotivMarkingComponent name="fixationCrossMarker" plugin="psychopy-emotiv">
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="1" valType="code" updates="None" name="durationEstim"/>
         <Param val="fixationCross" valType="str" updates="constant" name="emotiv_marker_label"/>
         <Param val="$fixationVal" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
         <Param val="False" valType="bool" updates="constant" name="emotiv_stop_marker"/>
@@ -485,7 +485,7 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="$fixationLen" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
-      </UnknownPluginComponent>
+      </EmotivMarkingComponent>
     </Routine>
     <Routine name="stimVid">
       <RoutineSettingsComponent name="stimVid" plugin="None">
@@ -565,13 +565,13 @@
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
-      <UnknownPluginComponent name="stimMarker_saved" plugin="psychopy-emotiv">
+      <UnknownPluginComponent name="stimMarker_save" plugin="psychopy-emotiv">
         <Param val="True" valType="bool" updates="None" name="disabled"/>
-        <Param val="0.01" valType="code" updates="None" name="durationEstim"/>
-        <Param val="$conditionList[counterStim]" valType="str" updates="set every repeat" name="emotiv_marker_label"/>
+        <Param val="4.5" valType="code" updates="None" name="durationEstim"/>
+        <Param val="$stimList[counterStim]" valType="str" updates="set every repeat" name="emotiv_marker_label"/>
         <Param val="$markerValList[counterStim]" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
-        <Param val="True" valType="bool" updates="constant" name="emotiv_stop_marker"/>
-        <Param val="stimMarker_saved" valType="code" updates="None" name="name"/>
+        <Param val="False" valType="bool" updates="constant" name="emotiv_stop_marker"/>
+        <Param val="stimMarker_save" valType="code" updates="None" name="name"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -580,8 +580,8 @@
         <Param val="4.4" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
       </UnknownPluginComponent>
-      <UnknownPluginComponent name="stimMarker" plugin="psychopy-emotiv">
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
+      <EmotivMarkingComponent name="stimMarker" plugin="psychopy-emotiv">
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="4.5" valType="code" updates="None" name="durationEstim"/>
         <Param val="$stimList[counterStim]" valType="str" updates="set every repeat" name="emotiv_marker_label"/>
         <Param val="$markerValList[counterStim]" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
@@ -594,7 +594,7 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="4.4" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
-      </UnknownPluginComponent>
+      </EmotivMarkingComponent>
     </Routine>
     <Routine name="interTrialInterval">
       <RoutineSettingsComponent name="interTrialInterval" plugin="None">
@@ -677,8 +677,8 @@
         <Param val="True" valType="bool" updates="None" name="disabled"/>
         <Param val="3" valType="code" updates="None" name="durationEstim"/>
         <Param val="intertrial_interval" valType="str" updates="constant" name="emotiv_marker_label"/>
-        <Param val="3000" valType="str" updates="constant" name="emotiv_marker_value"/>
-        <Param val="True" valType="bool" updates="constant" name="emotiv_stop_marker"/>
+        <Param val="$itiVal" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
+        <Param val="False" valType="bool" updates="constant" name="emotiv_stop_marker"/>
         <Param val="ITImarker_saved" valType="code" updates="None" name="name"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
@@ -688,8 +688,8 @@
         <Param val="$itiLen" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
       </UnknownPluginComponent>
-      <UnknownPluginComponent name="ITImarker" plugin="psychopy-emotiv">
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
+      <EmotivMarkingComponent name="ITImarker" plugin="psychopy-emotiv">
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="3" valType="code" updates="None" name="durationEstim"/>
         <Param val="intertrial_interval" valType="str" updates="constant" name="emotiv_marker_label"/>
         <Param val="$itiVal" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
@@ -702,7 +702,7 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="$itiLen" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
-      </UnknownPluginComponent>
+      </EmotivMarkingComponent>
     </Routine>
     <Routine name="blockSetup">
       <RoutineSettingsComponent name="blockSetup" plugin="None">
@@ -1068,7 +1068,7 @@
       <CodeComponent name="codeGetAnswer" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="answerCTVal = 0" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="if conditionList[counterStim-1] != 'catch':&amp;#10;    continueRoutine = False&amp;#10;    keyPressed = &quot;&quot;&amp;#10;    statusPress = &quot;&quot;&amp;#10;    answerCTVal = 0&amp;#10;else:&amp;#10;    keyPressed = event.getKeys()&amp;#10;    print(keyPressed)&amp;#10;    if keyPressed == []:&amp;#10;        keyPressed = 'none'&amp;#10;    else:    &amp;#10;        keyPressed = str(keyPressed[-1])&amp;#10;    &amp;#10;    keyAffirm = str(keyAffirm[0])&amp;#10;    print('keyPressed: ', keyPressed)&amp;#10;    print('keyAffirm: ', keyAffirm)&amp;#10;    if keyPressed == str(keyAffirm):&amp;#10;        statusPress = &quot;Correct!&quot;&amp;#10;        answerCTVal = 201&amp;#10;    else:&amp;#10;        statusPress = &quot;Incorrect!&quot;&amp;#10;        answerCTVal = 200&amp;#10;    print('statusPress: ', statusPress)&amp;#10;    print('answerCTVal: ', answerCTVal)&amp;#10;     " valType="extendedCode" updates="constant" name="Begin Routine"/>
@@ -1107,13 +1107,13 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <UnknownPluginComponent name="eeg_marker" plugin="psychopy-emotiv">
+      <UnknownPluginComponent name="CTmarker_saved" plugin="psychopy-emotiv">
         <Param val="True" valType="bool" updates="None" name="disabled"/>
         <Param val="0.01" valType="code" updates="None" name="durationEstim"/>
         <Param val="answerCT" valType="str" updates="constant" name="emotiv_marker_label"/>
         <Param val="$answerCTval" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
         <Param val="False" valType="bool" updates="constant" name="emotiv_stop_marker"/>
-        <Param val="eeg_marker" valType="code" updates="None" name="name"/>
+        <Param val="CTmarker_saved" valType="code" updates="None" name="name"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -1122,6 +1122,21 @@
         <Param val="0.1" valType="code" updates="constant" name="stopVal"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
       </UnknownPluginComponent>
+      <EmotivMarkingComponent name="CTmarker" plugin="psychopy-emotiv">
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="0.01" valType="code" updates="None" name="durationEstim"/>
+        <Param val="answerCT" valType="str" updates="constant" name="emotiv_marker_label"/>
+        <Param val="$answerCTVal" valType="str" updates="set every repeat" name="emotiv_marker_value"/>
+        <Param val="True" valType="bool" updates="constant" name="emotiv_stop_marker"/>
+        <Param val="CTmarker" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="0.1" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
+      </EmotivMarkingComponent>
     </Routine>
   </Routines>
   <Flow>

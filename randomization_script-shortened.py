@@ -174,7 +174,7 @@ print()
 final_trial_list = randomize_trials_df
 
 # output_file_path = r'C:\Users\andre\PycharmProjects\Robot Code Stuff\final_trials.xlsx'
-output_file_path = 'AO_final_randomized_trials.xlsx'
+output_file_path = 'trial_files/AO_final_randomized_trials.xlsx'
 final_trial_list.to_excel(output_file_path, index=False)
 
 
@@ -183,7 +183,7 @@ print(f"The script has completed. The final trials have been saved to '{output_f
 
 
 # Export randomized trails for AOE
-output_file_path = 'AOE_final_randomized_trials.xlsx'
+output_file_path = 'trial_files/AOE_final_randomized_trials.xlsx'
 df_experimental_trials_shuffled.to_excel(output_file_path, index=False)
 
 
