@@ -749,6 +749,12 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
         print('=*'*50)
         print("Block: ", counterBlock)
         print('Number of trials: ', N_trial)
+        if counterBlock == int(N_block/2):
+            breakLength = 300 + 1
+        else:
+            breakLength = 15 + 1
+
+        breakCD = breakLength
         
         # keep track of which components have finished
         blockSetupComponents = []
