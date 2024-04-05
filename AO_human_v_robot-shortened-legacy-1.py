@@ -1959,8 +1959,11 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                         # update status
                         CTmarker.status = FINISHED
                         CTmarker.status = FINISHED
-                        delta_time = tThisFlip-t  # Adding the extra time between now and the next screen flip
-                        cortex_obj.update_marker(label='answerCT', delta_time=delta_time)
+                        # delta_time = tThisFlip-t  # Adding the extra time between now and the next screen flip
+                        # cortex_obj.update_marker(label='answerCT', delta_time=delta_time)
+                
+
+
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
