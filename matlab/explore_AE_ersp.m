@@ -74,7 +74,7 @@ baseline = [-1 0];
 tf_params = {'timesout', timesout, 'baseline', baseline * 1000, 'scale', 'log',...
                 'nfreqs', length(freqrange(1):1/freqfac:freqrange(2)), ...
                 'freqs', freqrange, 'freqscale', 'linear',...
-                'alpha', 0.05, 'erspmax', 2.5, 'vert', [-1000 0 1000], ...
+                'alpha', 0.05, 'erspmax', 2.5, 'vert', [-1000 0], ...
                 'plotitc', 'off', 'plotersp', 'on', 'trialbase', 'off',...
                 'verbose', 'off', 'newfig', 'off'};
 
@@ -154,13 +154,17 @@ for chan = 1:length(chan_names)
         h = colorbar; title(h, "ERSP (dB)", 'FontSize', 8)
         xlabel('Time (ms)'); ylabel('Frequency (Hz)');
         xlim([min(times) max(times)]); ylim([min(freqs) max(freqs)])
-        xline(0, '--m'); xline(1000, '--m'); xline(-1000, '--m')
+        xline(0, '--m'); xline(-1000, '--m')
         yline(8, '--k'); yline(13, '--k')
         hold off;
     end
 end
 
 ersp_average_all = ersp_average_all / count_average_all;
+
+%------------------------------------------------
+% grand average ERSP plot: 
+% average ersp during AO across all conditions, subjects, channels
 
 figure(); hold on
 title('Average across all subjects, channels, conditions');
@@ -169,6 +173,12 @@ axis xy; colormap(jet(256)); clim([-2 2])
 h = colorbar; title(h, "ERSP (dB)", 'FontSize', 8)
 xlabel('Time (ms)'); ylabel('Frequency (Hz)');
 xlim([min(times) max(times)]); ylim([min(freqs) max(freqs)])
-xline(0, '--m'); xline(1000, '--m'); xline(-1000, '--m')
-yline(8, '--k'); yline(13, '--k'); yline(15, '--k'); yline(22, '--k');
+xline(0, '--m'); xline(-1000, '--m')
+yline(9, '--k'); yline(13, '--k'); yline(19, '--k'); yline(24, '--k');
 hold off
+
+% The grand average show ERD in alpha band (8-13Hz) and beta band (19-24Hz)
+
+%==================================================
+
+

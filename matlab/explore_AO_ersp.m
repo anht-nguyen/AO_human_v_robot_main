@@ -1,6 +1,6 @@
-% clear all;
+clear all;
 eeglab; 
-% close all;
+close all;
 
 trials = {'000-2-AO','001-AO', '002-AO' };
 
@@ -69,7 +69,8 @@ freqrange = [4 30];
 wavelet_cycles = [4 1-15.36/freqrange(2)]; % cite Angelini et al 2018
 timesout = 800;
 tlimits = [-2 4.5];
-baseline = [-1.4 -1];
+% baseline = [-1.4 -1];
+baseline = [-1 0];
 
 tf_params = {'timesout', timesout, 'baseline', baseline * 1000, 'scale', 'log',...
                 'nfreqs', length(freqrange(1):1/freqfac:freqrange(2)), ...
@@ -105,7 +106,7 @@ for chan = 1:length(chan_names)
 
             nexttile(t); hold on
             title([char(markerLabel(cond_idx)) ' (n=' num2str(size(EEG_cond.epoch, 2)) ')' ]);
-            [ersp,~,~,times,freqs] = ...
+            [ersp,~,~,times,freqs,erspboot] = ...
                 pop_newtimef(EEG_cond, 1, 1, tlimits*1000, wavelet_cycles, tf_params{:});
             hold off
             ersp_cond_cell{cond_idx} = ersp;
@@ -162,6 +163,9 @@ end
 
 ersp_average_all = ersp_average_all / count_average_all;
 
+
+% grand average ERSP plot: 
+% average ersp during AO across all conditions, subjects, channels
 figure(); hold on
 title('Average across all subjects, channels, conditions');
 imagesc(times, freqs, ersp_average_all)
@@ -170,12 +174,29 @@ h = colorbar; title(h, "ERSP (dB)", 'FontSize', 8)
 xlabel('Time (ms)'); ylabel('Frequency (Hz)');
 xlim([min(times) max(times)]); ylim([min(freqs) max(freqs)])
 xline(0, '--m'); xline(1000, '--m'); xline(-1000, '--m')
-yline(8, '--k'); yline(13, '--k'); yline(15, '--k'); yline(22, '--k');
+yline(8, '--k'); yline(13, '--k'); yline(17, '--k'); yline(24, '--k');
 hold off
 
+% The grand average show ERD in alpha band (8-13Hz) and beta band (15-22Hz)
+
+% Updated analysis: using baseline during fixation cross to be consistent
+% with AE analysis, AO analysis of grand average shows ERD in beta band 17-24 Hz 
 
 
-% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+% =======================================================================
 % % Correlation of ERSP between conditions for each subject and Plot Correlation
 % 
 % f_c3corr = figure; axgrid = [3 4];
