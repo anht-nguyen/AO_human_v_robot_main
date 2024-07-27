@@ -51,6 +51,8 @@ for data_row = 1 : height(subject_data_info)
         plot(movmean(times, win_size), movmean(EQ_data, win_size), 'r--', 'LineWidth', 2.5)
         hold off
 
+
+
         %------------------------------------
         EEG_curate = EEG_curation_func(EEG_curate);
 
@@ -66,6 +68,7 @@ for data_row = 1 : height(subject_data_info)
         EEG_curate = pop_editset(EEG_curate, 'setname', dataset_name);
         pop_saveset(EEG_curate, [dataset_name '.set'], filepath);
 
-        saveas(fig, [filepath dataset_name '.png']);
+        % save "EEG quality" figure
+        saveas(fig, [filepath 'figures\' dataset_name '.png']);
     end
 end

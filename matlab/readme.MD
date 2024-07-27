@@ -5,4 +5,4 @@ EEG preprocessing and analysis pipeline:
 - Add information of eeg data folder to subject_data_info.xlsx
 
 
-2. 
+2. Run preprocessing_AO.m to perform preprocessing for AO EEG datasets. Do the same for AOE dataset using preprocessing AOE.m
