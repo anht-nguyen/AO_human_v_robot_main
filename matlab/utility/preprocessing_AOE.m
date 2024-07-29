@@ -8,24 +8,30 @@ eeglab; close all;
 
 subject_data_info = readtable("subject_data_info.xlsx");
 trials = {};
-
+subject_idx = {};
+bad_channels = {};
+bad_epochs = {};
 for data_row = 1 : height(subject_data_info)
     protocol = num2str(subject_data_info.protocol(data_row));
     subject_id = num2str(subject_data_info.subject_id(data_row));
     experiment = subject_data_info.experiment{data_row};
     EDF_filename = subject_data_info.EDF_filename{data_row};
+    bad_channel = cellfun(@str2double, strsplit(subject_data_info.bad_channel{data_row}, ','));
+    bad_epoch = cellfun(@str2double, strsplit(subject_data_info.bad_epoch{data_row}, ','));
 
     subject_folder = [protocol '_' subject_id];
 
     if strcmp(experiment, 'AOE') == 1 & isempty(EDF_filename) == 0
         trials{end+1} = [subject_folder '-' experiment];
+        subject_idx{end+1} = subject_id;
+        bad_channels{end+1} = bad_channel;
+        bad_epochs{end+1} = bad_epoch;
     end
 end
 
 origin_path = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub' ...
     '\AO_human_v_robot_main'];
 filepath = [origin_path '\FloAim6_Data\datasets\'];
-
 
 
 ALLEEG_prep = cell(1,length(trials));
@@ -42,6 +48,7 @@ trial_t_range = [-1 4];
 
 ALLEEG_prepd = [];
 
+%-----------------------
 for i = 1:length(trials)
     disp(['*** Subject: ' trials{i}]);
     EEG_prep = ALLEEG_prep{i};
@@ -52,10 +59,10 @@ for i = 1:length(trials)
     disp(['Total number of trials: ', num2str(size(EEG_prep_raw.epoch, 2)) ]);
 
     %-------------------------------
-    % Due to error in markerVal from PsychoPy experiment: 001-AOE
+    % Due to error in markerVal from PsychoPy experiment: 830126_602 (prelim ID: 001-AOE)
     % marker value of each AE are not match with marker value of each AO preceding it
     % This step is needed to fix the events
-    if strcmpi(trials{i}, '001-AOE')        
+    if strcmpi(subject_idx{i}, '602')        %strcmpi(trials{i}, '001-AOE')        
         urevent_org = [EEG_prep.event.type];
         urevent_new = urevent_org;
         
@@ -75,8 +82,11 @@ for i = 1:length(trials)
     EEG_prep = pop_eegfiltnew(EEG_prep, 'locutoff',1);
 
     % Remove bad channels from visual inspection
-    if i == 1
-        EEG_prep = pop_select(EEG_prep, 'rmchannel', {'T8', 'O1'});
+    % if strcomp(subject_idx{i}, '603') == 1
+    %     EEG_prep = pop_select(EEG_prep, 'rmchannel', {'T8', 'O1'});
+    % end
+    if ~isnan(bad_channels{i}) 
+        EEG_prep = pop_select(EEG_prep, 'rmchannel', bad_channels{i});
     end
 
     % recompute average reference interpolating missing channels (and removing
@@ -109,11 +119,15 @@ for i = 1:length(trials)
 
     
     % visual inspection to remove epoch with amplitude > 80 uV
-    if i == 2
-        EEG_prep = pop_rejepoch( EEG_prep, [39 73 76 81 87 89 109 112 113 114 117 118] ,0);
-    end
-    if i == 3
-        EEG_prep = pop_rejepoch( EEG_prep, [8 16 18 24 29 50 62 66 70 71 75 76:78 83 85 87 88 90 91 93:2:97 98 100 101 103 105 106 108 109:119] ,0);
+    % if strcomp(subject_idx{i}, '602') == 1 %i == 2
+    %     EEG_prep = pop_rejepoch( EEG_prep, [39 73 76 81 87 89 109 112 113 114 117 118] ,0);
+    % end
+    % if strcomp(subject_idx{i}, '601') == 1 %i == 3
+    %     EEG_prep = pop_rejepoch( EEG_prep, [8 16 18 24 29 50 62 66 70 71 75 76:78 83 85 87 88 90 91 93:2:97 98 100 101 103 105 106 108 109:119] ,0);
+    % end
+
+    if ~isnan(bad_epochs{i})
+        EEG_prep = pop_rejepoch( EEG_prep, bad_epochs{i}, 0);
     end
 
     % Checking numbers of trials remaining after cleaning

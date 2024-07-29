@@ -2,10 +2,32 @@ clear all;
 eeglab; 
 close all;
 
-trials = {'000-2-AO','001-AO', '002-AO' };
+% trials = {'000-2-AO','001-AO', '002-AO' };
+% 
+% filepath = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub\' ...
+%     'AO_human_v_robot_main\prelim_EEG\datasets\'];
 
-filepath = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub\' ...
-    'AO_human_v_robot_main\prelim_EEG\datasets\'];
+subject_data_info = readtable("subject_data_info.xlsx");
+trials = {};
+subject_idx = {};
+for data_row = 1 : height(subject_data_info)
+    protocol = num2str(subject_data_info.protocol(data_row));
+    subject_id = num2str(subject_data_info.subject_id(data_row));
+    experiment = subject_data_info.experiment{data_row};
+    EDF_filename = subject_data_info.EDF_filename{data_row};
+
+    subject_folder = [protocol '_' subject_id '-AO'];
+
+    if strcmp(experiment, 'AO') == 1 & isempty(EDF_filename) == 0
+        trials{end+1} = subject_folder ;
+        subject_idx{end+1} = subject_id;
+    end
+end
+
+origin_path = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub' ...
+    '\AO_human_v_robot_main'];
+filepath = [origin_path '\FloAim6_Data\datasets\'];
+
 
 ALLEEG_a = cell(1,3);
 for i=1:length(trials)
@@ -93,7 +115,7 @@ for chan = 1:length(chan_names)
         EEG_chan = pop_select( EEG_a, 'channel', chan_names(chan));
 
         figure(); t = tiledlayout(3,2);
-        title(t, ['Subject ' trials{trial_N}(1:end-3) ', channel ' chan_names{chan}])
+        title(t, ['Subject ' subject_idx{trial_N} ', channel ' chan_names{chan}])
 
         ersp_cond_cell = cell(1,length(markerVal_cell));
 
@@ -131,7 +153,7 @@ end
 ersp_average_all = zeros(size(ersp_cond_all{1,1}{1}));
 count_average_all = 0;
 for chan = 1:length(chan_names)
-    figure(); t = tiledlayout(3,2);
+    fig = figure(); t = tiledlayout(3,2);
     title(t, ['Average across all subjects, channel ' chan_names{chan}]);
 
     for cond_idx = 1:length(markerLabel)
@@ -159,6 +181,7 @@ for chan = 1:length(chan_names)
         yline(8, '--k'); yline(13, '--k')
         hold off;
     end
+    saveas(fig, [filepath 'figures\' 'AO - Average across all subjects - channel ' chan_names{chan} '.png']);
 end
 
 ersp_average_all = ersp_average_all / count_average_all;
@@ -166,7 +189,7 @@ ersp_average_all = ersp_average_all / count_average_all;
 
 % grand average ERSP plot: 
 % average ersp during AO across all conditions, subjects, channels
-figure(); hold on
+fig = figure(); hold on
 title('Average across all subjects, channels, conditions');
 imagesc(times, freqs, ersp_average_all)
 axis xy; colormap(jet(256)); clim([-2 2])
@@ -176,6 +199,8 @@ xlim([min(times) max(times)]); ylim([min(freqs) max(freqs)])
 xline(0, '--m'); xline(1000, '--m'); xline(-1000, '--m')
 yline(8, '--k'); yline(13, '--k'); yline(17, '--k'); yline(24, '--k');
 hold off
+
+saveas(fig, [filepath 'figures\' 'AO - Average across all subjects channels, conditions' '.png']);
 
 % The grand average show ERD in alpha band (8-13Hz) and beta band (15-22Hz)
 

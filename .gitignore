@@ -169,6 +169,7 @@ data
 study_design.pptx
 *.html
 *.txt
+*.asv
 analysis
 archive
 prelim_EEG

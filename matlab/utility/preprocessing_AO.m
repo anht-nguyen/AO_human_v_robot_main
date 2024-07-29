@@ -4,17 +4,24 @@ eeglab; close all;
 
 subject_data_info = readtable("subject_data_info.xlsx");
 trials = {};
-
+subject_idx = {};
+bad_channels = {};
+bad_epochs = {};
 for data_row = 1 : height(subject_data_info)
     protocol = num2str(subject_data_info.protocol(data_row));
     subject_id = num2str(subject_data_info.subject_id(data_row));
     experiment = subject_data_info.experiment{data_row};
     EDF_filename = subject_data_info.EDF_filename{data_row};
+    bad_channel = cellfun(@str2double, strsplit(subject_data_info.bad_channel{data_row}, ','));
+    bad_epoch = cellfun(@str2double, strsplit(subject_data_info.bad_epoch{data_row}, ','));
 
     subject_folder = [protocol '_' subject_id];
 
     if strcmp(experiment, 'AO') == 1 & isempty(EDF_filename) == 0
         trials{end+1} = [subject_folder '-' experiment];
+        subject_idx{end+1} = subject_id;
+        bad_channels{end+1} = bad_channel;
+        bad_epochs{end+1} = bad_epoch;
     end
 end
 
@@ -69,18 +76,21 @@ for i = 1:length(trials)
 
 
     % Remove bad channels from visual inspection
-    if i == 1 || i == 3
-        EEG_prep = pop_select(EEG_prep, 'rmchannel', {'FP1', 'FP2'});
-    end
-    if i == 1
-        EEG_prep = pop_select(EEG_prep, 'rmchannel', {'T8'});
-    end
-
-    if i == 2
-        EEG_prep = pop_select(EEG_prep, 'rmchannel', {'F4', 'Oz'});
-    end
-    if i == 3
-        EEG_prep = pop_select(EEG_prep, 'rmchannel', {'CP2'});
+        % if i == 1 || i == 3
+        %     EEG_prep = pop_select(EEG_prep, 'rmchannel', {'FP1', 'FP2'});
+        % end
+        % if i == 1
+        %     EEG_prep = pop_select(EEG_prep, 'rmchannel', {'T8'});
+        % end
+        % 
+        % if i == 2
+        %     EEG_prep = pop_select(EEG_prep, 'rmchannel', {'F4', 'Oz'});
+        % end
+        % if i == 3
+        %     EEG_prep = pop_select(EEG_prep, 'rmchannel', {'CP2'});
+        % end
+    if ~isnan(bad_channels{i}) 
+        EEG_prep = pop_select(EEG_prep, 'rmchannel', bad_channels{i});
     end
 
     % recompute average reference interpolating missing channels (and removing
@@ -117,14 +127,17 @@ for i = 1:length(trials)
 
 
     % visual inspection to remove epoch with amplitude > 80 uV
-    if i == 1
-        EEG_prep = pop_rejepoch( EEG_prep, [131] ,0);
-    end
-    if i == 2
-        EEG_prep = pop_rejepoch( EEG_prep, [33 39 55 56:66 68 69 74 105 120] ,0);
-    end
-    if i == 3
-        EEG_prep = pop_rejepoch( EEG_prep, [5 8 9 16 18 20 21 50 53 58 65 66 73 80 82 90 103 113 116 117 124 128 129 139 140] ,0);
+        % if i == 1
+        %     EEG_prep = pop_rejepoch( EEG_prep, [131] ,0);
+        % end
+        % if i == 2
+        %     EEG_prep = pop_rejepoch( EEG_prep, [33 39 55 56:66 68 69 74 105 120] ,0);
+        % end
+        % if i == 3
+        %     EEG_prep = pop_rejepoch( EEG_prep, [5 8 9 16 18 20 21 50 53 58 65 66 73 80 82 90 103 113 116 117 124 128 129 139 140] ,0);
+        % end
+    if ~isnan(bad_epochs{i})
+        EEG_prep = pop_rejepoch( EEG_prep, bad_epochs{i}, 0);
     end
 
     % Checking numbers of trials remaining after cleaning

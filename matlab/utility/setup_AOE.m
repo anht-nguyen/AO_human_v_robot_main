@@ -1,7 +1,31 @@
-trials = {'000-2','001', '002'};
 
-filepath = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub\' ...
-    'AO_human_v_robot_main\prelim_EEG\datasets\'];
+subject_data_info = readtable("subject_data_info.xlsx");
+trials = {};
+subject_idx = {};
+for data_row = 1 : height(subject_data_info)
+    protocol = num2str(subject_data_info.protocol(data_row));
+    subject_id = num2str(subject_data_info.subject_id(data_row));
+    experiment = subject_data_info.experiment{data_row};
+    EDF_filename = subject_data_info.EDF_filename{data_row};
+
+    subject_folder = [protocol '_' subject_id];
+
+    if strcmp(experiment, 'AO') == 1 & isempty(EDF_filename) == 0
+        trials{end+1} = subject_folder ;
+        subject_idx{end+1} = subject_id;
+    end
+end
+
+origin_path = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub' ...
+    '\AO_human_v_robot_main'];
+filepath = [origin_path '\FloAim6_Data\datasets\'];
+
+
+
+% trials = {'000-2','001', '002'};
+% filepath = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub\' ...
+%     'AO_human_v_robot_main\prelim_EEG\datasets\'];
+
 output_plot_path = [filepath 'output' '\\'];
 
 experiments = {'AO', 'AOE'};
