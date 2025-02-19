@@ -7,6 +7,7 @@ eeglab;
 % filepath = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub\' ...
 %     'AO_human_v_robot_main\prelim_EEG\datasets\'];
 
+%%
 
 subject_data_info = readtable("subject_data_info.xlsx");
 trials = {};
@@ -40,7 +41,8 @@ EEG_a = ALLEEG_a{trial_N};
 % plot_folder = ['plot-' trials(trial_N) '\\' ];
 output_plot_path = [filepath 'output' '\\'];
 
-%========================================================
+
+% ========================================================
 % Parameters
 
 markerVal_string = {'110' '111' '112' '113' '114'...
@@ -100,7 +102,9 @@ tf_params = {'timesout', timesout, 'baseline', baseline * 1000, 'scale', 'log',.
                 'plotitc', 'off', 'plotersp', 'on', 'trialbase', 'off',...
                 'verbose', 'off', 'newfig', 'off'};
 
-%=================================================
+setup_AOE
+
+%% =================================================
 ersp_cond_all = cell(length(chan_names), length(trials));
 ersp_average_cond = cell(length(chan_names), length(trials));
 
@@ -108,12 +112,12 @@ for chan = 1:length(chan_names)
     disp(['*** Channel: ' chan_names{chan}]);
     
     
-    for trial_N = 1:length(trials)
+    for trial_N = 4 %1:length(trials)
         disp(['*** Subject: ' trials{trial_N}]);
         EEG_a = ALLEEG_a{trial_N};
         EEG_chan = pop_select( EEG_a, 'channel', chan_names(chan));
 
-        figure(); t = tiledlayout(3,2);
+        fig_subj = figure(); t = tiledlayout(3,2);
         title(t, ['Subject ' subject_idx{trial_N} ', channel ' chan_names{chan}])
 
         ersp_cond_cell = cell(1,length(markerVal_cell));
@@ -126,7 +130,8 @@ for chan = 1:length(chan_names)
             disp(['*** Number of trials in this condition: ', num2str(size(EEG_cond.epoch, 2)) ]);
 
             nexttile(t); hold on
-            title([char(markerLabel(cond_idx)) ' (n=' num2str(size(EEG_cond.epoch, 2)) ')' ]);
+            % title([char(markerLabel(cond_idx)) ' (n=' num2str(size(EEG_cond.epoch, 2)) ')' ]);
+            title(AE_expCondLabels{cond_idx})
             [ersp,~,~,times,freqs] = ...
                 pop_newtimef(EEG_cond, 1, 1, tlimits*1000, wavelet_cycles, tf_params{:});
             hold off
@@ -143,6 +148,9 @@ for chan = 1:length(chan_names)
         hold off;
         ersp_average_cond{chan, trial_N} = ersp;
 
+
+        % save figure
+        saveas(fig_subj, [filepath 'figures\' trials{trial_N} '-' chan_names{chan} ' - ERSP' '.png']);
     end
 end
 
@@ -200,10 +208,233 @@ xline(0, '--m'); xline(-1000, '--m')
 yline(9, '--k'); yline(13, '--k'); yline(19, '--k'); yline(24, '--k');
 hold off
 
-saveas(fig, [filepath 'figures\' 'AOE - Average across all subjects channels, conditions' '.png']);
+% saveas(fig, [filepath 'figures\' 'AOE - Average across all subjects channels, conditions' '.png']);
 
 % The grand average show ERD in alpha band (8-13Hz) and beta band (19-24Hz)
 
 %==================================================
 
+
+%% Plot data grouped by 4 experimental conditions (collapsing central electrodes, grouping healthy and stroke subj)
+% Plot ERSPs
+
+trial_group_erd_tw_mean = zeros([length(trial_groups) length(AE_expCondMarkers) length(AE_window_idx)]);
+trial_group_erd_tw_std = zeros([length(trial_groups) length(AE_expCondMarkers) length(AE_window_idx)]);
+
+trial_erd_tw_mean_group = zeros([length(trial_groups) length(AE_expCondMarkers) length(AE_window_idx)]);
+trial_erd_tw_std_group = zeros([length(trial_groups) length(AE_expCondMarkers) length(AE_window_idx)]);
+
+for trial_group_i = 1:length(trial_groups)
+
+    allersp_group = cell(length(trial_groups{trial_group_i}), length(AE_expCondMarkers));
+
+    for trial_idx = 1:length(trial_groups{trial_group_i})
+        disp(['*** Subject: ' trial_groups{trial_group_i}{trial_idx}])
+        
+        filename = [trial_groups{trial_group_i}{trial_idx} '-AOE' '-preprocessed.set']; % manually type to select dataset
+        EEG_a = pop_loadset('filename', filename, 'filepath', filepath);
+
+        for cond_group_i = 1:length(AE_expCondMarkers)
+            EEG_cond = pop_epoch(EEG_a, AE_expCondMarkers{cond_group_i}, trial_t_range, ...
+                'verbose', 'off');
+            EEG_cond = pop_select( EEG_cond, 'channel', central_elecs);
+
+
+            for elec_i = 1:EEG_cond.nbchan
+                disp(['*** Electrod: ' central_elecs{elec_i}])
+                % figure();
+                [ersp,itc,powbase,times,freqs,erspboot,itcboot] = pop_newtimef(EEG_cond, ...
+                    1, elec_i, tlimits*1000, wavelet_cycles,  tf_params{:}, ...
+                    'plotersp', 'off', 'plotitc', 'off', 'plotphase', 'off');
+
+                if elec_i == 1  % create empty arrays if first electrode
+                    allersp = zeros([ size(ersp) EEG_cond.nbchan]);
+                    alltimes = zeros([ size(times) EEG_cond.nbchan]);
+                    allfreqs = zeros([ size(freqs) EEG_cond.nbchan]);
+                    allerspboot = zeros([ size(erspboot) EEG_cond.nbchan]);
+                end
+                allersp (:,:,elec_i) = ersp;
+                alltimes (:,:,elec_i) = times;
+                allfreqs (:,:,elec_i) = freqs;
+                allerspboot (:,:,elec_i) = erspboot;
+            end
+            averaged_ersp = mean(allersp, 3);
+
+            allersp_group{trial_idx, cond_group_i} = averaged_ersp;
+        end
+
+    end
+
+    % Compute the average
+    fig_subj = figure();
+    nRows = 2; nCols = 2;
+    t_main = tiledlayout(nRows, nCols);
+    title(t_main, [ trial_group_labels{trial_group_i} ' group - ERSP' ])
+
+
+    averaged_allersp_group = cell(1, length(AE_expCondMarkers));
+    for col = 1:4
+        % Concatenate the matrices along the 3rd dimension
+        mat3D = cat(3, allersp_group{:,col});
+        % Compute the mean along the 3rd dimension (across the 7 rows)
+        averaged_allersp_group{col} = mean(mat3D, 3);
+
+        nexttile(t_main); hold on
+        title(AE_expCondLabels{col})
+        imagesc(times, freqs, averaged_allersp_group{col} )
+        axis xy; colormap(jet(256)); clim([-3 3])
+        h = colorbar; title(h, "ERSP (dB)", 'FontSize', 8)
+        xlabel('Time (ms)'); ylabel('Frequency (Hz)');
+        xlim([min(times) max(times)]); ylim([min(freqs) max(freqs)])
+        xline(0, '--m'); xline(-1000, '--m')
+        yline(8, '--k'); yline(13, '--k')
+        hold off;
+    end
+
+
+    % plot temporal patterns of mu ERD
+    % mean_erd_cell = cell(length(AE_expCondMarkers), length(AE_window_idx) );
+    % std_erd_cell = cell(length(AE_expCondMarkers), length(AE_window_idx) );
+    for cond_group_i = 1:length(AE_expCondMarkers)
+        ersp = averaged_allersp_group{cond_group_i};
+
+        for tw = 1:length(AE_window_idx)
+            ersp_mu_tw = ersp(freqs >= AE_alpha_band(1) & freqs <= AE_alpha_band(end), AE_window_idx{tw});
+            trial_group_erd_tw_mean(trial_group_i, cond_group_i, tw) = mean(ersp_mu_tw, "all") ;
+            trial_group_erd_tw_std(trial_group_i, cond_group_i, tw) = std(ersp_mu_tw, 0, "all") ;
+        end
+
+
+    end
+
+
+    % compute ERD by time windows for each subject (before averaging across subjects)
+    trial_erd_tw_mean = zeros([length(trial_groups{trial_group_i}) length(AE_expCondMarkers) length(AE_window_idx)]);
+    for trial_idx = 1:length(trial_groups{trial_group_i})
+        for cond_group_i = 1:length(AE_expCondMarkers)
+            ersp = allersp_group{trial_idx, cond_group_i};
+    
+            for tw = 1:length(AE_window_idx)
+                ersp_mu_tw = ersp(freqs >= AE_alpha_band(1) & freqs <= AE_alpha_band(end), AE_window_idx{tw});
+                trial_erd_tw_mean(trial_idx, cond_group_i, tw) = mean(ersp_mu_tw, "all") ;
+
+            end
+        end
+    end
+
+    trial_erd_tw_mean_group(trial_group_i, :, :) = mean(trial_erd_tw_mean, 1);
+    trial_erd_tw_std_group(trial_group_i, :, :) = std(trial_erd_tw_mean, 0, 1);
+end
+
+%%
+x_shift= [-0.1 0];
+
+markerColor_new = {"b", "r" };
+markerCurveStyle_new = ["-", "-", ];
+markerSymbol_new = ["o", "*"];
+
+fig_subj = figure();
+nRows = 2; nCols = 2;
+t_main = tiledlayout(nRows, nCols);
+title(t_main, [ 'Temporal patterns' ])
+
+
+x = 0:numel(AE_window_idx)-1;
+lines = [];
+for cond_group_i = 1:length(AE_expCondMarkers)
+
+    nexttile(t_main); hold on
+    title(AE_expCondLabels{cond_group_i})
+
+    for trial_group_i = 1:length(trial_groups)
+        mean_vector = trial_group_erd_tw_mean(trial_group_i, cond_group_i, :);
+        std_vector = trial_group_erd_tw_std(trial_group_i, cond_group_i,:);
+        mean_vector = mean_vector(:); std_vector = std_vector(:);
+
+        % p = errorbar(x+x_shift(trial_group_i), mean_vector, std_vector, ...
+        %     "Marker", markerSymbol_new(trial_group_i), 'Color',markerColor_new{trial_group_i}, ...
+        %     "LineStyle", markerCurveStyle_new(trial_group_i),"MarkerSize", markerSize, ...
+        %     "DisplayName", trial_group_labels{trial_group_i});
+
+         % Compute the shaded region (mean ± std)
+        x_fill = [x, fliplr(x)];
+        y_fill = [mean_vector + std_vector; flipud(mean_vector - std_vector)];
+
+        % Plot the shaded area
+        fill(x_fill, y_fill, markerColor_new{trial_group_i}, 'FaceAlpha', 0.3, 'EdgeColor', 'none');
+
+        % Plot the mean line
+        p = plot(x, mean_vector, "LineStyle", markerCurveStyle_new(trial_group_i), ...
+            "Marker", markerSymbol_new(trial_group_i), 'Color', markerColor_new{trial_group_i}, ...
+            "MarkerSize", markerSize, "DisplayName", trial_group_labels{trial_group_i});
+        if cond_group_i == 1
+            lines = [lines p];
+        end
+    end
+    xticks(x);
+    xlim([x(1)-.5 x(end)+.5]); ylim([-4.5 4.5])
+    xregion(-0.5, 0.5, FaceColor="k", FaceAlpha=0.1); xregion(0.5, x(end)+.5, FaceColor="w", FaceAlpha=0.2)
+    xlabel('Time windows (250 ms)');
+    ylabel('ERSP (dB)'); yline(0, 'k--', 'Alpha', 0.5)
+
+    hold off
+end
+% Place the legend at the bottom (south) of the tiledlayout
+lgd = legend(lines);  % Only show the legend for the two unique lines
+lgd.Layout.Tile = 'south';  % Place the legend at the bottom (south)
+lgd.Orientation = 'horizontal';  % Make the legend items appear side by side
+
+
+%% %% Temporal pattern plot: mean and std of ERDs across subjects
+x_shift= [-0.1 0];
+
+markerColor_new = {"b", "r" };
+markerCurveStyle_new = ["-", "-", ];
+markerSymbol_new = ["o", "*"];
+
+fig_subj = figure();
+nRows = 2; nCols = 2;
+t_main = tiledlayout(nRows, nCols);
+title(t_main, [ 'Temporal patterns' ])
+
+
+x = 0:numel(AE_window_idx)-1;
+lines = [];
+for cond_group_i = 1:length(AE_expCondMarkers)
+
+    nexttile(t_main); hold on
+    title(AE_expCondLabels{cond_group_i})
+
+    for trial_group_i = 1:length(trial_groups)
+        mean_vector = trial_erd_tw_mean_group(trial_group_i, cond_group_i, :);
+        std_vector = trial_erd_tw_std_group(trial_group_i, cond_group_i,:);
+        mean_vector = mean_vector(:); std_vector = std_vector(:);
+
+         % Compute the shaded region (mean ± std)
+        x_fill = [x, fliplr(x)];
+        y_fill = [mean_vector + std_vector; flipud(mean_vector - std_vector)];
+
+        % Plot the shaded area
+        fill(x_fill, y_fill, markerColor_new{trial_group_i}, 'FaceAlpha', 0.3, 'EdgeColor', 'none');
+
+        % Plot the mean line
+        p = plot(x, mean_vector, "LineStyle", markerCurveStyle_new(trial_group_i), ...
+            "Marker", markerSymbol_new(trial_group_i), 'Color', markerColor_new{trial_group_i}, ...
+            "MarkerSize", markerSize, "DisplayName", trial_group_labels{trial_group_i});
+        if cond_group_i == 1
+            lines = [lines p];
+        end
+    end
+    xticks(x);
+    xlim([x(1)-.5 x(end)+.5]); ylim([-6 6])
+    xregion(-0.5, 0.5, FaceColor="k", FaceAlpha=0.1); xregion(0.5, x(end)+.5, FaceColor="w", FaceAlpha=0.2)
+    xlabel('Time windows (250 ms)');
+    ylabel('ERSP (dB)'); yline(0, 'k--', 'Alpha', 0.5)
+
+    hold off
+end
+% Place the legend at the bottom (south) of the tiledlayout
+lgd = legend(lines);  % Only show the legend for the two unique lines
+lgd.Layout.Tile = 'south';  % Place the legend at the bottom (south)
+lgd.Orientation = 'horizontal';  % Make the legend items appear side by side
 
