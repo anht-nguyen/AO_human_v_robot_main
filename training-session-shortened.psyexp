@@ -1398,10 +1398,10 @@
         <Param val="4" valType="int" updates="constant" name="nVertices"/>
         <Param val="executionCircle" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
-        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="90" valType="num" updates="constant" name="ori"/>
         <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="circle" valType="str" updates="None" name="shape"/>
+        <Param val="triangle" valType="str" updates="None" name="shape"/>
         <Param val="(0.25, 0.25)" valType="list" updates="constant" name="size"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -1457,47 +1457,6 @@
     <Routine name="putOnEEG"/>
     <Routine name="checkEEGquality"/>
     <Routine name="beginTraining"/>
-    <Routine name="introExp1"/>
-    <Routine name="fixationCross_train1"/>
-    <Routine name="stimVid_train1"/>
-    <Routine name="ITI_train1"/>
-    <Routine name="beginTrainLoop1"/>
-    <LoopInitiator loopType="TrialHandler" name="TrainLoop1">
-      <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="None" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="" valType="file"/>
-      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
-      <Param name="loopType" updates="None" val="sequential" valType="str"/>
-      <Param name="nReps" updates="None" val="9" valType="num"/>
-      <Param name="name" updates="None" val="TrainLoop1" valType="code"/>
-      <Param name="random seed" updates="None" val="" valType="code"/>
-    </LoopInitiator>
-    <Routine name="fixationCross_train1"/>
-    <Routine name="stimVid_train1"/>
-    <Routine name="ITI_train1"/>
-    <LoopTerminator name="TrainLoop1"/>
-    <Routine name="endTrain1"/>
-    <Routine name="introCatchtrial"/>
-    <Routine name="introCT_2"/>
-    <Routine name="beginTrainCT"/>
-    <LoopInitiator loopType="TrialHandler" name="CTtrainLoop">
-      <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="None" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="" valType="file"/>
-      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
-      <Param name="loopType" updates="None" val="sequential" valType="str"/>
-      <Param name="nReps" updates="None" val="10" valType="num"/>
-      <Param name="name" updates="None" val="CTtrainLoop" valType="code"/>
-      <Param name="random seed" updates="None" val="" valType="code"/>
-    </LoopInitiator>
-    <Routine name="fixationCross_train1"/>
-    <Routine name="stimVid_train1"/>
-    <Routine name="catchtrialQues"/>
-    <Routine name="ITI_train1"/>
-    <LoopTerminator name="CTtrainLoop"/>
-    <Routine name="endTrainCT"/>
     <Routine name="introExp2"/>
     <LoopInitiator loopType="TrialHandler" name="trials">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
@@ -1510,6 +1469,7 @@
       <Param name="name" updates="None" val="trials" valType="code"/>
       <Param name="random seed" updates="None" val="" valType="code"/>
     </LoopInitiator>
+    <Routine name="fixationCross_train1"/>
     <Routine name="stimVid_train1"/>
     <Routine name="fixationCross_train1"/>
     <Routine name="executionPhase"/>

@@ -1,7 +1,38 @@
-trials = {'000-2','001', '002'};
 
-filepath = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub\' ...
-    'AO_human_v_robot_main\prelim_EEG\datasets\'];
+subject_data_info = readtable("subject_data_info.xlsx");
+trials = {}; healthy_group = {}; stroke_group = {};
+subject_idx = {};
+for data_row = 1 : height(subject_data_info)
+    protocol = num2str(subject_data_info.protocol(data_row));
+    subject_id = num2str(subject_data_info.subject_id(data_row));
+    med_cond = subject_data_info.med_cond{data_row};
+    experiment = subject_data_info.experiment{data_row};
+    EDF_filename = subject_data_info.EDF_filename{data_row};
+
+    subject_folder = [protocol '_' subject_id];     
+
+    if strcmp(experiment, 'AO') == 1 & isempty(EDF_filename) == 0
+        trials{end+1} = subject_folder ;
+        if strcmp(med_cond, 'stroke') == 1
+            stroke_group{end+1} = subject_folder;
+        else
+            healthy_group{end+1} = subject_folder;
+        end
+        subject_idx{end+1} = subject_id;
+    end
+end
+
+origin_path = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub' ...
+    '\AO_human_v_robot_main'];
+filepath = [origin_path '\FloAim6_Data\datasets\'];
+
+trial_groups = {healthy_group, stroke_group};
+trial_group_labels = {'Healthy', 'Stroke'};
+
+% trials = {'000-2','001', '002'};
+% filepath = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub\' ...
+%     'AO_human_v_robot_main\prelim_EEG\datasets\'];
+
 output_plot_path = [filepath 'output' '\\'];
 
 experiments = {'AO', 'AOE'};
@@ -25,6 +56,12 @@ end
 
 chan_names = {'C3', 'C4'};
 
+% central_elecs = {'C3', 'C4', 'Cz'};
+central_elecs = {'C3', 'C4'};
+occip_elecs = {'O1', 'O2', 'Oz'};
+group_elecs = {central_elecs, occip_elecs};
+group_elec_labels = {'central', 'occipital'};
+
 % theta_band = {4:8};
 % alpha_l_band = {8:10};
 % alpha_h_band = {10:13};
@@ -35,7 +72,7 @@ chan_names = {'C3', 'C4'};
 % band_colors = ["b","r","g"];
 % freq_bands_bl = [theta_band,  alpha_band, beta_band];
 
-band_names = ["alpha" "beta"];
+band_names = ["mu" "beta"];
 
 freqfac = 2;
 freqrange = [4 30];
@@ -62,6 +99,12 @@ AO_markerVal_num = [10  11  12  13  14 ...
     40  41  42  43  44  ...
     50 51 52];
 
+AO_expCondLabels = ["human-left", "human-right", "robot-left", "robot-right"];
+AO_expCondMarkers = {{'10' '11' '12' '13' '14'},...
+    {'20' '21' '22' '23' '24'},...
+    {'30' '31' '32' '33' '34'},...
+    {'40' '41' '42' '43' '44'}};
+
 AO_trial_t_range = [-3 4.5];
 AO_tlimits = [-2 4.5];
 AO_baseline = [-1 0];
@@ -72,6 +115,13 @@ AO_tf_params = {'timesout', timesout, 'baseline', AO_baseline * 1000, 'scale', '
     'freqs', freqrange, 'freqscale', 'linear',...
     'alpha', 0.05, 'erspmax', 2.5, 'vert', [-1000 0 1000], ...
     'plotitc', 'off', 'plotersp', 'off', 'trialbase', 'off',...
+    'verbose', 'off', 'newfig', 'off'};
+
+AO_tf_params_no_bl = {'timesout', timesout, 'baseline', NaN, 'scale', 'log',...
+    'nfreqs', length(freqrange(1):1/freqfac:freqrange(2)), ...
+    'freqs', freqrange, 'freqscale', 'linear',...
+    'erspmax', 2.5, 'vert', [-1000 0 1000], 'plotphase', 'off', ...
+    'plotitc', 'off', 'plotersp', 'on', 'trialbase', 'off',...
     'verbose', 'off', 'newfig', 'off'};
 
 %========================================================
@@ -92,6 +142,12 @@ AE_markerVal_num = [110  111  112  113  114 ...
     130  131  132  133  134  ...
     140  141  142  143  144 ];
 
+AE_expCondLabels = ["human-right", "human-left", "robot-right", "robot-left"];
+AE_expCondMarkers = {{'110' '111' '112' '113' '114'},...
+    {'120' '121' '122' '123' '124'},...
+    {'130' '131' '132' '133' '134'},...
+    {'140' '141' '142' '143' '144'}};
+
 AE_trial_t_range = [-1 3.5];
 AE_tlimits = [-1 3.5];
 AE_baseline = [-1 0];
@@ -102,7 +158,6 @@ AE_tf_params = {'timesout', timesout, 'baseline', AE_baseline * 1000, 'scale', '
     'alpha', 0.05, 'erspmax', 2.5, 'vert', [-1000 0], ...
     'plotitc', 'off', 'plotersp', 'off', 'trialbase', 'off',...
     'verbose', 'off', 'newfig', 'off'};
-
 
 
 %=================================================
@@ -198,7 +253,32 @@ else
 end
 
 
+
 % ALL_ERSP_trial is a 1xN cell (N subjects)
 % each cell element is a 2x2 cell (columns are AO and AE, rows are C3 and C4)
 % each smaller cell has n double matrices of ERSP (n = # of conditions, n=5 for AO and n=4 for AE)
 % for each ERSP matrix, row is frequency and column is times
+
+
+
+%--------------------------------------------------------------------------
+exp = 1;
+AO_times = times_exp_cell{exp};
+exp = 2;
+AE_times = times_exp_cell{exp};
+
+AO_onset_times = 1000;
+AE_onset_times = 0;
+window_size = 250;
+% find the indices of time points lying within consecutive time windows of 250 seconds  
+AO_window_idx = extract_window_indices_wbl(AO_times, AO_onset_times, window_size, AO_baseline*1000);
+AE_window_idx = extract_window_indices_wbl(AE_times, AE_onset_times, window_size, AE_baseline*1000);
+
+%--------------------------------------
+AO_alpha_band = 7.5:0.5:13.5;
+AO_beta_band = 17:0.5:24;
+AO_bands = {AO_alpha_band, AO_beta_band};
+
+AE_alpha_band = 9:0.5:13;
+AE_beta_band = 19:0.5:24;
+AE_bands = {AE_alpha_band, AE_beta_band};

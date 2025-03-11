@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.2.3),
-    on March 31, 2024, at 09:41
+    on November 18, 2024, at 16:11
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -107,7 +107,7 @@ def setupData(expInfo, dataDir=None):
     thisExp = data.ExperimentHandler(
         name=expName, version='',
         extraInfo=expInfo, runtimeInfo=None,
-        originPath='C:\\Users\\anhtn\\OneDrive - PennO365\\Documents\\GitHub\\AO_human_v_robot_main\\training-session.py',
+        originPath='C:\\Users\\anhtn\\OneDrive - PennO365\\Documents\\GitHub\\AO_human_v_robot_main\\training-session_lastrun.py',
         savePickle=True, saveWideText=True,
         dataFileName=dataDir + os.sep + filename, sortColumns='time'
     )
@@ -158,7 +158,7 @@ def setupWindow(expInfo=None, win=None):
     if win is None:
         # if not given a window to setup, make one
         win = visual.Window(
-            size=(1024, 768), fullscr=True, screen=2,
+            size=[2560, 1440], fullscr=True, screen=1,
             winType='pyglet', allowStencil=False,
             monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
             backgroundImage='', backgroundFit='none',
@@ -395,7 +395,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
         win, name='stimVid_train',
         filename=None, movieLib='ffpyplayer',
         loop=False, volume=1.0, noAudio=True,
-        pos=(0, 0), size=(1.77, 1), units=win.units,
+        pos=(0, 0), size=(1.125, 0.63), units=win.units,
         ori=0.0, anchor='center',opacity=None, contrast=1.0,
         depth=0
     )
@@ -435,7 +435,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
         win, name='stimVid_train',
         filename=None, movieLib='ffpyplayer',
         loop=False, volume=1.0, noAudio=True,
-        pos=(0, 0), size=(1.77, 1), units=win.units,
+        pos=(0, 0), size=(1.125, 0.63), units=win.units,
         ori=0.0, anchor='center',opacity=None, contrast=1.0,
         depth=0
     )
@@ -526,7 +526,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
         win, name='stimVid_train',
         filename=None, movieLib='ffpyplayer',
         loop=False, volume=1.0, noAudio=True,
-        pos=(0, 0), size=(1.77, 1), units=win.units,
+        pos=(0, 0), size=(1.125, 0.63), units=win.units,
         ori=0.0, anchor='center',opacity=None, contrast=1.0,
         depth=0
     )
@@ -600,7 +600,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
         win, name='stimVid_train',
         filename=None, movieLib='ffpyplayer',
         loop=False, volume=1.0, noAudio=True,
-        pos=(0, 0), size=(1.77, 1), units=win.units,
+        pos=(0, 0), size=(1.125, 0.63), units=win.units,
         ori=0.0, anchor='center',opacity=None, contrast=1.0,
         depth=0
     )
@@ -1457,7 +1457,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 keySkipS.status = FINISHED
                 keySkipS.status = FINISHED
         if keySkipS.status == STARTED and not waitOnFlip:
-            theseKeys = keySkipS.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+            theseKeys = keySkipS.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
             _keySkipS_allKeys.extend(theseKeys)
             if len(_keySkipS_allKeys):
                 keySkipS.keys = _keySkipS_allKeys[-1].name  # just the last key pressed
@@ -1588,7 +1588,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 keySkipS_2.status = FINISHED
                 keySkipS_2.status = FINISHED
         if keySkipS_2.status == STARTED and not waitOnFlip:
-            theseKeys = keySkipS_2.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+            theseKeys = keySkipS_2.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
             _keySkipS_2_allKeys.extend(theseKeys)
             if len(_keySkipS_2_allKeys):
                 keySkipS_2.keys = _keySkipS_2_allKeys[-1].name  # just the last key pressed
@@ -1733,7 +1733,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 keySkipS_3.status = FINISHED
                 keySkipS_3.status = FINISHED
         if keySkipS_3.status == STARTED and not waitOnFlip:
-            theseKeys = keySkipS_3.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+            theseKeys = keySkipS_3.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
             _keySkipS_3_allKeys.extend(theseKeys)
             if len(_keySkipS_3_allKeys):
                 keySkipS_3.keys = _keySkipS_3_allKeys[-1].name  # just the last key pressed
@@ -2023,7 +2023,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     keySkipS.status = FINISHED
                     keySkipS.status = FINISHED
             if keySkipS.status == STARTED and not waitOnFlip:
-                theseKeys = keySkipS.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+                theseKeys = keySkipS.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
                 _keySkipS_allKeys.extend(theseKeys)
                 if len(_keySkipS_allKeys):
                     keySkipS.keys = _keySkipS_allKeys[-1].name  # just the last key pressed
@@ -2153,7 +2153,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     keySkipS_2.status = FINISHED
                     keySkipS_2.status = FINISHED
             if keySkipS_2.status == STARTED and not waitOnFlip:
-                theseKeys = keySkipS_2.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+                theseKeys = keySkipS_2.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
                 _keySkipS_2_allKeys.extend(theseKeys)
                 if len(_keySkipS_2_allKeys):
                     keySkipS_2.keys = _keySkipS_2_allKeys[-1].name  # just the last key pressed
@@ -2297,7 +2297,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     keySkipS_3.status = FINISHED
                     keySkipS_3.status = FINISHED
             if keySkipS_3.status == STARTED and not waitOnFlip:
-                theseKeys = keySkipS_3.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+                theseKeys = keySkipS_3.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
                 _keySkipS_3_allKeys.extend(theseKeys)
                 if len(_keySkipS_3_allKeys):
                     keySkipS_3.keys = _keySkipS_3_allKeys[-1].name  # just the last key pressed
@@ -3001,7 +3001,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     keySkipS.status = FINISHED
                     keySkipS.status = FINISHED
             if keySkipS.status == STARTED and not waitOnFlip:
-                theseKeys = keySkipS.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+                theseKeys = keySkipS.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
                 _keySkipS_allKeys.extend(theseKeys)
                 if len(_keySkipS_allKeys):
                     keySkipS.keys = _keySkipS_allKeys[-1].name  # just the last key pressed
@@ -3131,7 +3131,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     keySkipS_2.status = FINISHED
                     keySkipS_2.status = FINISHED
             if keySkipS_2.status == STARTED and not waitOnFlip:
-                theseKeys = keySkipS_2.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+                theseKeys = keySkipS_2.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
                 _keySkipS_2_allKeys.extend(theseKeys)
                 if len(_keySkipS_2_allKeys):
                     keySkipS_2.keys = _keySkipS_2_allKeys[-1].name  # just the last key pressed
@@ -3587,7 +3587,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     keySkipS_3.status = FINISHED
                     keySkipS_3.status = FINISHED
             if keySkipS_3.status == STARTED and not waitOnFlip:
-                theseKeys = keySkipS_3.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+                theseKeys = keySkipS_3.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
                 _keySkipS_3_allKeys.extend(theseKeys)
                 if len(_keySkipS_3_allKeys):
                     keySkipS_3.keys = _keySkipS_3_allKeys[-1].name  # just the last key pressed
@@ -3989,7 +3989,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     keySkipS_2.status = FINISHED
                     keySkipS_2.status = FINISHED
             if keySkipS_2.status == STARTED and not waitOnFlip:
-                theseKeys = keySkipS_2.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+                theseKeys = keySkipS_2.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
                 _keySkipS_2_allKeys.extend(theseKeys)
                 if len(_keySkipS_2_allKeys):
                     keySkipS_2.keys = _keySkipS_2_allKeys[-1].name  # just the last key pressed
@@ -4133,7 +4133,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     keySkipS.status = FINISHED
                     keySkipS.status = FINISHED
             if keySkipS.status == STARTED and not waitOnFlip:
-                theseKeys = keySkipS.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+                theseKeys = keySkipS.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
                 _keySkipS_allKeys.extend(theseKeys)
                 if len(_keySkipS_allKeys):
                     keySkipS.keys = _keySkipS_allKeys[-1].name  # just the last key pressed
@@ -4403,7 +4403,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     keySkipS_3.status = FINISHED
                     keySkipS_3.status = FINISHED
             if keySkipS_3.status == STARTED and not waitOnFlip:
-                theseKeys = keySkipS_3.getKeys(keyList=['s'], ignoreKeys=["escape"], waitRelease=False)
+                theseKeys = keySkipS_3.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
                 _keySkipS_3_allKeys.extend(theseKeys)
                 if len(_keySkipS_3_allKeys):
                     keySkipS_3.keys = _keySkipS_3_allKeys[-1].name  # just the last key pressed
