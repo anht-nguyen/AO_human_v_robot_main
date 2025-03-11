@@ -243,3 +243,72 @@ for trial_idx = 1:length(healthy_group)
 
     end
 end
+
+%% Export PSDs for each epoch - include markervalues when exporting PSD files
+
+ROIs_FC = {'Cz' , 'FC1', 'C3', 'FC5', 'CP5', 'CP1', 'CP6', 'FC6', 'C4', 'FC2'};
+freqRange = 4:1:30;
+
+
+action_types = {{'10' '20' '30' '40'} ...
+    {'11' '21' '31' '41' }...
+    {'12' '22' '32' '42'}...
+    {'13' '23' '33' '43'}...
+    {'14' '24' '34' '44'}};
+
+action_types_t_range = { [1 4], [1 4], [1 4], [1 4], [1 4]};
+
+action_types_label = {"action_0", "action_1", "action_2", "action_3", "action_4"};
+
+data_out_folder = [projectDir '\matlab\output\PSDdata'];
+
+ALLEEG_a = cell(1,3);
+for i=1:length(healthy_group)
+    filename = [healthy_group{i} '-AO-preprocessed.set']; % manually type to select dataset
+    ALLEEG_a{i} = pop_loadset('filename', filename, 'filepath', filepath);
+end
+
+for trial_idx = 1:length(healthy_group)
+    disp(healthy_group{trial_idx})
+    EEG_a = ALLEEG_a{trial_idx};
+
+    for cond_idx = 1:length(action_types)
+        disp(action_types_label{cond_idx})
+        EEG_cond = pop_epoch(EEG_a, action_types{cond_idx}, action_types_t_range{cond_idx});
+
+        PSD_mat = zeros(length(ROIs_FC), length(freqRange)); % 65 if all frequencies
+
+        for epoch = 1:EEG_cond.trials
+
+            for chan = 1:length(ROIs_FC)
+                disp(ROIs_FC{chan})    
+                if  ismember(ROIs_FC(chan), {EEG_cond.chanlocs.labels})
+                    EEG_chan = pop_select( EEG_cond, 'channel', ROIs_FC(chan));
+                    
+                    [PSD_chan,freqs,~,~,~] = spectopo(EEG_chan.data(:,:,epoch), 0, EEG_chan.srate, 'plot', 'off');
+                    
+    
+                    PSD_chan = PSD_chan((freqs >= freqRange(1)) & (freqs <= freqRange(end)));
+                end
+            PSD_mat(chan,:) = PSD_chan;
+    
+            end
+
+
+            % Define the output directory
+            outputDir = fullfile(projectDir, 'matlab', 'output', 'PSD_epoched_data_by_action_types', char(action_types_label{cond_idx}));
+            
+            % Check if the directory exists; if not, create it
+            if ~exist(outputDir, 'dir')
+                mkdir(outputDir);
+            end
+            
+            % Define the output file path
+            outputFile = fullfile(outputDir, [char(healthy_group{trial_idx}) '-' char(action_types_label{cond_idx}) '-epoch_' num2str(epoch) '-PSD.mat']);
+            
+            % Save the file
+            save(outputFile, 'PSD_mat');
+        end
+
+    end
+end
