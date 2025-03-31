@@ -3,6 +3,8 @@ eeglab; close all;
 origin_path = pwd() %['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub\AO_human_v_robot_main'];
 filepath = [origin_path '\FloAim6_Data\datasets\'];
 
+
+
 subject_data_info = readtable([origin_path '\matlab\subject_data_info.xlsx']);
 trials = {};
 subject_idx = {};
@@ -98,8 +100,8 @@ end
 
 origin_path = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub' ...
     '\AO_human_v_robot_main'];
-filepath = [origin_path '\FloAim6_Data\datasets\'];
-
+% filepath = [origin_path '\FloAim6_Data\datasets\'];
+filepath = [origin_path '\FloAim6_Data\datasets\newprep\'];
 
 ALLEEG_prep = cell(1,3);
 for trial_idx=1:length(trials)

@@ -2,46 +2,7 @@ clear all;
 eeglab;
 close all;
 
-%%
-% trials = {'000-2-AO','001-AO', '002-AO' };
-%
-% filepath = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub\' ...
-%     'AO_human_v_robot_main\prelim_EEG\datasets\'];
-
-subject_data_info = readtable("subject_data_info.xlsx");
-trials = {};
-subject_idx = {};
-for data_row = 1 : height(subject_data_info)
-    protocol = num2str(subject_data_info.protocol(data_row));
-    subject_id = num2str(subject_data_info.subject_id(data_row));
-    experiment = subject_data_info.experiment{data_row};
-    EDF_filename = subject_data_info.EDF_filename{data_row};
-
-    subject_folder = [protocol '_' subject_id '-AO'];
-
-    if strcmp(experiment, 'AO') == 1 & isempty(EDF_filename) == 0
-        trials{end+1} = subject_folder ;
-        subject_idx{end+1} = subject_id;
-    end
-end
-
-origin_path = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub' ...
-    '\AO_human_v_robot_main'];
-filepath = [origin_path '\FloAim6_Data\datasets\'];
-
-
-ALLEEG_a = cell(1,3);
-for i=1:length(trials)
-    filename = [trials{i} '-preprocessed.set']; % manually type to select dataset
-    ALLEEG_a{i} = pop_loadset('filename', filename, 'filepath', filepath);
-end
-
-trial_idx = 2;
-EEG_a = ALLEEG_a{trial_idx};
-% plot_folder = ['plot-' trials(trial_idx) '\\' ];
-output_plot_path = [filepath 'output' '\\'];
-
-%========================================================
+%% ========================================================
 % Parameters
 trial_t_range = [-3 4.5];
 
@@ -104,6 +65,41 @@ tf_params = {'timesout', timesout, 'baseline', baseline * 1000, 'scale', 'log',.
 
 setup_AOE
 
+%%
+
+subject_data_info = readtable("subject_data_info.xlsx");
+trials = {};
+subject_idx = {};
+for data_row = 1 : height(subject_data_info)
+    protocol = num2str(subject_data_info.protocol(data_row));
+    subject_id = num2str(subject_data_info.subject_id(data_row));
+    experiment = subject_data_info.experiment{data_row};
+    EDF_filename = subject_data_info.EDF_filename{data_row};
+
+    subject_folder = [protocol '_' subject_id '-AO'];
+
+    if strcmp(experiment, 'AO') == 1 & isempty(EDF_filename) == 0
+        trials{end+1} = subject_folder ;
+        subject_idx{end+1} = subject_id;
+    end
+end
+
+
+origin_path = ['C:\Users\anhtn\OneDrive - PennO365\Documents\GitHub' ...
+    '\AO_human_v_robot_main'];
+% filepath = [origin_path '\FloAim6_Data\datasets\'];
+filepath = [origin_path '\FloAim6_Data\datasets\newprep\'];
+
+ALLEEG_a = cell(1,3);
+for i=1:length(trials)
+    filename = [trials{i} '-preprocessed.set']; % manually type to select dataset
+    ALLEEG_a{i} = pop_loadset('filename', filename, 'filepath', filepath);
+end
+
+trial_idx = 2;
+EEG_a = ALLEEG_a{trial_idx};
+% plot_folder = ['plot-' trials(trial_idx) '\\' ];
+output_plot_path = [filepath 'output' '\\'];
 
 %% =================================================================
 ersp_cond_all = cell(length(chan_names), length(trials));

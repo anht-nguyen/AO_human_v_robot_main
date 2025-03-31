@@ -59,11 +59,13 @@ function plot_psd_on_2Dtopoplot(EEG, freq_range, trial_idx, isSaved, filepath)
     for ch = 1:n_channels
         % Position each small axes centered at the electrode location
         ax = axes('Position', [x_rot(ch)*0.4 + 0.48, y_rot(ch)*0.5 + 0.5, 0.08, 0.08]); % Adjust position
+        box on;
         plot(ax, freqs, spectra(ch, :), 'k'); % PSD plot
         title(ax, labels{ch}, 'FontWeight', 'bold', 'FontSize', 8)
         axis tight; % Tighten axis
         set(ax, 'XTick', [], 'YTick', [], 'Color', 'none'); % Remove ticks and background
-        box on;
+        vline(10, '--'); xregion(8,13);
+
     end
 
     % Create an axis at the bottom-right corner
@@ -74,7 +76,9 @@ function plot_psd_on_2Dtopoplot(EEG, freq_range, trial_idx, isSaved, filepath)
     set(ax, 'XTick', [freq_range(1) freq_range(2)], 'YTick', [], 'Color', 'none', 'FontSize', 8);
     xlabel(ax, 'Frequency (Hz)', 'FontSize', 8); % X-axis label
     ylabel(ax, 'PSD', 'FontSize', 8); % Y-axis label
-    ylim([0 10]), xlim([freq_range(1) freq_range(2)])
+    ylim([0 10]); xlim([freq_range(1) freq_range(2)]);
+    set(ax, 'XTick', [freq_range(1), 10, 20, 30, freq_range(2)], 'YTick', [], 'Color', 'none');
+    vline(10, '--'); xregion(8,13);
 
     % Final Adjustments
     hold off;
