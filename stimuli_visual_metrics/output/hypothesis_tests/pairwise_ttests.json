@@ -1,0 +1,322 @@
+[
+  {
+    "Metric":"Mean lumi",
+    "Group1":"control",
+    "Group2":"human_left",
+    "t-stat":-2.4451586951,
+    "p-value":0.1341892515,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean lumi",
+    "Group1":"control",
+    "Group2":"human_right",
+    "t-stat":-2.4844210026,
+    "p-value":0.1304149798,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean lumi",
+    "Group1":"control",
+    "Group2":"robot_left",
+    "t-stat":0.015722509,
+    "p-value":0.9888827233,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean lumi",
+    "Group1":"control",
+    "Group2":"robot_right",
+    "t-stat":0.0137364474,
+    "p-value":0.9902868922,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean lumi",
+    "Group1":"human_left",
+    "Group2":"human_right",
+    "t-stat":-0.7778368164,
+    "p-value":0.4493840806,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean lumi",
+    "Group1":"human_left",
+    "Group2":"robot_left",
+    "t-stat":83.7060216687,
+    "p-value":1.450337631e-18,
+    "p-adj":1.450337631e-17
+  },
+  {
+    "Metric":"Mean lumi",
+    "Group1":"human_left",
+    "Group2":"robot_right",
+    "t-stat":83.2158438818,
+    "p-value":1.259934562e-18,
+    "p-adj":1.259934562e-17
+  },
+  {
+    "Metric":"Mean lumi",
+    "Group1":"human_right",
+    "Group2":"robot_left",
+    "t-stat":52.2708875774,
+    "p-value":0.0,
+    "p-adj":0.0
+  },
+  {
+    "Metric":"Mean lumi",
+    "Group1":"human_right",
+    "Group2":"robot_right",
+    "t-stat":52.1293650443,
+    "p-value":0.0,
+    "p-adj":0.0
+  },
+  {
+    "Metric":"Mean lumi",
+    "Group1":"robot_left",
+    "Group2":"robot_right",
+    "t-stat":-0.1017040459,
+    "p-value":0.921495825,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"control",
+    "Group2":"human_left",
+    "t-stat":2.4287486506,
+    "p-value":0.1008865153,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"control",
+    "Group2":"human_right",
+    "t-stat":2.4561475497,
+    "p-value":0.100152702,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"control",
+    "Group2":"robot_left",
+    "t-stat":5.4362487566,
+    "p-value":0.0321602132,
+    "p-adj":0.3216021319
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"control",
+    "Group2":"robot_right",
+    "t-stat":5.4444863774,
+    "p-value":0.0320673704,
+    "p-adj":0.3206737041
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"human_left",
+    "Group2":"human_right",
+    "t-stat":0.030655323,
+    "p-value":0.9758820667,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"human_left",
+    "Group2":"robot_left",
+    "t-stat":6.6140107446,
+    "p-value":0.0000958652,
+    "p-adj":0.0009586521
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"human_left",
+    "Group2":"robot_right",
+    "t-stat":6.6334568182,
+    "p-value":0.000093736,
+    "p-adj":0.0009373601
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"human_right",
+    "Group2":"robot_left",
+    "t-stat":6.768738025,
+    "p-value":0.0000802214,
+    "p-adj":0.0008022144
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"human_right",
+    "Group2":"robot_right",
+    "t-stat":6.7887670293,
+    "p-value":0.0000784152,
+    "p-adj":0.0007841522
+  },
+  {
+    "Metric":"Mean contrast",
+    "Group1":"robot_left",
+    "Group2":"robot_right",
+    "t-stat":0.3043069827,
+    "p-value":0.7686593162,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"control",
+    "Group2":"human_left",
+    "t-stat":0.9164689783,
+    "p-value":0.4560209306,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"control",
+    "Group2":"human_right",
+    "t-stat":0.9836460063,
+    "p-value":0.4287975691,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"control",
+    "Group2":"robot_left",
+    "t-stat":1.146979407,
+    "p-value":0.3698405554,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"control",
+    "Group2":"robot_right",
+    "t-stat":1.26243475,
+    "p-value":0.3338298127,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"human_left",
+    "Group2":"human_right",
+    "t-stat":1.5038412355,
+    "p-value":0.1502041797,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"human_left",
+    "Group2":"robot_left",
+    "t-stat":4.9983129684,
+    "p-value":0.0006207905,
+    "p-adj":0.0062079046
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"human_left",
+    "Group2":"robot_right",
+    "t-stat":7.8454732928,
+    "p-value":0.0000119759,
+    "p-adj":0.000119759
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"human_right",
+    "Group2":"robot_left",
+    "t-stat":3.3591911019,
+    "p-value":0.0066954205,
+    "p-adj":0.0669542047
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"human_right",
+    "Group2":"robot_right",
+    "t-stat":5.968150763,
+    "p-value":0.0000838408,
+    "p-adj":0.0008384084
+  },
+  {
+    "Metric":"Mean flow",
+    "Group1":"robot_left",
+    "Group2":"robot_right",
+    "t-stat":2.4,
+    "p-value":0.0433671941,
+    "p-adj":0.4336719409
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"control",
+    "Group2":"human_left",
+    "t-stat":1.5266450672,
+    "p-value":0.2663958516,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"control",
+    "Group2":"human_right",
+    "t-stat":1.5266450672,
+    "p-value":0.2663958516,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"control",
+    "Group2":"robot_left",
+    "t-stat":1.470630238,
+    "p-value":0.2785212454,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"control",
+    "Group2":"robot_right",
+    "t-stat":1.5266450672,
+    "p-value":0.2663958516,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"human_left",
+    "Group2":"human_right",
+    "t-stat":null,
+    "p-value":null,
+    "p-adj":null
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"human_left",
+    "Group2":"robot_left",
+    "t-stat":-1.0,
+    "p-value":0.3739009663,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"human_left",
+    "Group2":"robot_right",
+    "t-stat":null,
+    "p-value":null,
+    "p-adj":null
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"human_right",
+    "Group2":"robot_left",
+    "t-stat":-1.0,
+    "p-value":0.3739009663,
+    "p-adj":1.0
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"human_right",
+    "Group2":"robot_right",
+    "t-stat":null,
+    "p-value":null,
+    "p-adj":null
+  },
+  {
+    "Metric":"Mean edge_density",
+    "Group1":"robot_left",
+    "Group2":"robot_right",
+    "t-stat":1.0,
+    "p-value":0.3739009663,
+    "p-adj":1.0
+  }
+]

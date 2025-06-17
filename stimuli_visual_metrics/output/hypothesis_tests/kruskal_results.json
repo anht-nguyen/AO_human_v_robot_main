@@ -1,0 +1,22 @@
+[
+  {
+    "Metric":"Mean lumi",
+    "H-statistic":23.2206773619,
+    "p-value":0.0001143986
+  },
+  {
+    "Metric":"Mean contrast",
+    "H-statistic":22.0291715416,
+    "p-value":0.0001977584
+  },
+  {
+    "Metric":"Mean flow",
+    "H-statistic":19.0845314434,
+    "p-value":0.0007564507
+  },
+  {
+    "Metric":"Mean edge_density",
+    "H-statistic":25.4979372508,
+    "p-value":0.0000399451
+  }
+]
